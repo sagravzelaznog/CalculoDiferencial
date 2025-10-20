@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Usuarios pueden leer/escribir sus propios datos
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Progreso del usuario
+    match /userProgress/{progressId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+    }
+    
+    // Módulos del curso (solo lectura)
+    match /modules/{moduleId} {
+      allow read: if request.auth != null;
+    }
+    
+    // Ejercicios (solo lectura)
+    match /exercises/{exerciseId} {
+      allow read: if request.auth != null;
+    }
+    
+    // Evaluaciones (solo lectura)
+    match /assessments/{assessmentId} {
+      allow read: if request.auth != null;
+    }
+  }
+}
