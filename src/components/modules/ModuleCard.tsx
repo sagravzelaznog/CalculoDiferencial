@@ -10,7 +10,7 @@ interface ModuleCardProps {
   onStart: () => void;
 }
 
-export const ModuleCard: React.FC<ModuleCardProps> = ({ 
+const ModuleCard: React.FC<ModuleCardProps> = ({ 
   module, 
   progress, 
   isUnlocked,
@@ -125,3 +125,5 @@ export const ModuleCard: React.FC<ModuleCardProps> = ({
     </div>
   );
 };
+
+export default ModuleCard;

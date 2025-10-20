@@ -1,13 +1,13 @@
 // src/pages/Dashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { ModuleCard } from '../components/modules/ModuleCard';
+import ModuleCard from '../components/modules/ModuleCard';
 import { modules, getModulesByPrerequisites } from '../data/modules';
 import { ProgressService } from '../services/progressService';
 import { UserProgress } from '../types/course';
 import { LogOut, User, Trophy, Clock, BookOpen } from 'lucide-react';
 
-export const Dashboard: React.FC = () => {
+const Dashboard: React.FC = () => {
   const { user, appUser, logout } = useAuth();
   const [userProgress, setUserProgress] = useState<Record<string, UserProgress>>({});
   const [loading, setLoading] = useState(true);
@@ -252,3 +252,5 @@ export const Dashboard: React.FC = () => {
     </div>
   );
 };
+
+export default Dashboard;

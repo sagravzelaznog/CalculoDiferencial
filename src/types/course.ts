@@ -73,6 +73,37 @@ export interface Assessment {
 }
 
 export interface UserProgress {
+  moduleId: string;
+  completed: boolean;
+  progress: number; // porcentaje
+  lastAccessed: Date;
+  lessonsCompleted: string[];
+  exercisesCompleted: string[];
+  totalTimeSpent: number; // en minutos
+  score: number;
+}
+
+export interface ModuleProgress {
+  moduleId: string;
+  completed: boolean;
+  progress: number;
+  lastAccessed: Date;
+  lessonsCompleted: string[];
+  exercisesCompleted: string[];
+  totalTimeSpent: number;
+  score: number;
+}
+
+export interface LessonProgress {
+  lessonId: string;
+  completed: boolean;
+  timeSpent: number;
+  lastAccessed: Date;
+  exercisesCompleted: string[];
+  score: number;
+}
+
+export interface UserProgressOld {
   userId: string;
   moduleId: string;
   completedLessons: string[];

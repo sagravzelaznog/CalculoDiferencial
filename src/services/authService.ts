@@ -185,3 +185,33 @@ export class AuthService {
     return new Error(message);
   }
 }
+
+// Funciones de conveniencia para compatibilidad
+export const registerUser = async (email: string, password: string): Promise<User | null> => {
+  const authService = new AuthService();
+  try {
+    const result = await authService.register(email, password);
+    return result.user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loginUser = async (email: string, password: string): Promise<User | null> => {
+  const authService = new AuthService();
+  try {
+    const result = await authService.login(email, password);
+    return result.user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const logoutUser = async (): Promise<void> => {
+  const authService = new AuthService();
+  try {
+    await authService.logout();
+  } catch (error) {
+    throw error;
+  }
+};
