@@ -1,0 +1,711 @@
+/**
+ * Estilos específicos para el Módulo 4: La Derivada
+ * Diseño moderno y responsive para aprendizaje interactivo
+ */
+
+/* Variables CSS */
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --success-color: #4facfe;
+    --warning-color: #43e97b;
+    --danger-color: #fa709a;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --text-color: #34495e;
+    --border-radius: 15px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+}
+
+/* Estilos base mejorados */
+.modulo4-container {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-container {
+    background: rgba(255, 255, 255, 0.98);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Header del módulo mejorado */
+.module-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.module-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.module-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.module-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+/* Tarjetas de temas mejoradas */
+.topic-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border-left: 6px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.topic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.topic-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.topic-title {
+    color: var(--dark-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.topic-title i {
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+/* Secciones de contenido */
+.content-section {
+    margin-bottom: 35px;
+    animation: slideInRight 0.6s ease-out;
+}
+
+.content-section h4 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--light-color);
+}
+
+/* Demos interactivos mejorados */
+.interactive-demo {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin: 25px 0;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    position: relative;
+}
+
+.interactive-demo:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+}
+
+.demo-title {
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.demo-title i {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+/* Contenedores de gráficos */
+.graph-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: var(--transition);
+}
+
+.graph-container:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Cajas de ejercicios */
+.exercise-box {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-left: 5px solid #2196f3;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    transition: var(--transition);
+}
+
+.exercise-box:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
+}
+
+.exercise-title {
+    color: #1976d2;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Cajas de fórmulas */
+.formula-box {
+    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+    border: 3px solid #9c27b0;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+}
+
+.formula-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.2);
+}
+
+.formula {
+    font-size: 1.3rem;
+    color: #7b1fa2;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Botones interactivos mejorados */
+.btn-interactive {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: var(--transition);
+    margin: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-interactive::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-interactive:hover::before {
+    left: 100%;
+}
+
+.btn-interactive:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-interactive:active {
+    transform: translateY(-1px);
+}
+
+/* Sección de progreso mejorada */
+.progress-section {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: 2px solid #ffc107;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin: 25px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffc107" opacity="0.1"/></svg>');
+}
+
+.progress-title {
+    color: #856404;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Indicadores de pasos mejorados */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
+    position: relative;
+}
+
+.step-indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #e9ecef, #dee2e6);
+    z-index: 0;
+}
+
+.step {
+    background: #e9ecef;
+    color: #6c757d;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+    border: 3px solid white;
+}
+
+.step.active {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    animation: pulse 2s infinite;
+}
+
+.step.completed {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+.step.completed::after {
+    content: '✓';
+    position: absolute;
+    font-size: 1.2rem;
+}
+
+/* Navegación mejorada */
+.navigation {
+    position: fixed;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+}
+
+.nav-item {
+    display: block;
+    padding: 10px 15px;
+    margin: 8px 0;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--primary-color);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover::before,
+.nav-item.active::before {
+    transform: scaleY(1);
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    text-decoration: none;
+    transform: translateX(-5px);
+}
+
+/* Contenedores de quiz mejorados */
+.quiz-container {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin: 25px 0;
+    box-shadow: var(--box-shadow);
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.quiz-container:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+}
+
+.quiz-question {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+    line-height: 1.5;
+}
+
+.quiz-options {
+    margin-bottom: 25px;
+}
+
+.quiz-option {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-option::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.quiz-option:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.quiz-option:hover::before {
+    width: 4px;
+}
+
+.quiz-option.selected {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-color: #28a745;
+    color: #155724;
+}
+
+.quiz-option.correct {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-color: #28a745;
+    color: #155724;
+    animation: glow 0.5s ease-in-out;
+}
+
+.quiz-option.incorrect {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* Feedback mejorado */
+.feedback {
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: none;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.feedback.correct {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 2px solid #28a745;
+    color: #155724;
+}
+
+.feedback.incorrect {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border: 2px solid #dc3545;
+    color: #721c24;
+}
+
+/* Responsive design mejorado */
+@media (max-width: 768px) {
+    .navigation {
+        display: none;
+    }
+    
+    .main-container {
+        margin: 10px;
+        padding: 25px;
+    }
+    
+    .module-title {
+        font-size: 2.2rem;
+    }
+    
+    .topic-card {
+        padding: 20px;
+    }
+    
+    .topic-title {
+        font-size: 1.5rem;
+    }
+    
+    .step-indicator {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .step {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .module-title {
+        font-size: 1.8rem;
+    }
+    
+    .module-subtitle {
+        font-size: 1rem;
+    }
+    
+    .topic-title {
+        font-size: 1.3rem;
+    }
+    
+    .quiz-question {
+        font-size: 1.1rem;
+    }
+}
+
+/* Efectos especiales */
+.glow-effect {
+    animation: glow 2s infinite;
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* Mejoras de accesibilidad */
+.btn-interactive:focus,
+.quiz-option:focus,
+.nav-item:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Modo oscuro (opcional) */
+@media (prefers-color-scheme: dark) {
+    .main-container {
+        background: rgba(44, 62, 80, 0.95);
+        color: #ecf0f1;
+    }
+    
+    .topic-card {
+        background: #34495e;
+        color: #ecf0f1;
+    }
+    
+    .quiz-container {
+        background: #34495e;
+        color: #ecf0f1;
+    }
+    
+    .graph-container {
+        background: #2c3e50;
+        border-color: #34495e;
+    }
+}
+
+/* Animaciones de carga */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Efectos de hover para elementos interactivos */
+.interactive-element {
+    transition: var(--transition);
+}
+
+.interactive-element:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Indicadores de progreso personalizados */
+.custom-progress {
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.custom-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.custom-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}

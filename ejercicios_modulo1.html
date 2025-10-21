@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Complementarios - Módulo 1: Relaciones y Funciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .exercise-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .exercise-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .exercise-body {
+            padding: 2rem;
+        }
+
+        .difficulty-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .difficulty-basic { background: var(--success-color); color: white; }
+        .difficulty-intermediate { background: var(--warning-color); color: black; }
+        .difficulty-advanced { background: var(--danger-color); color: white; }
+
+        .solution-box {
+            background: #e8f5e8;
+            border: 1px solid var(--success-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .hint-box {
+            background: #fff3cd;
+            border: 1px solid var(--warning-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .btn-exercise {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-exercise:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .formula-display {
+            background: #f8f9fa;
+            border: 2px solid var(--info-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .step-by-step {
+            background: #fff8e1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .progress-exercise {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-calculator"></i> Cálculo Diferencial
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modulo1_relaciones_funciones.html">
+                            <i class="fas fa-chart-line"></i> Módulo 1
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-pencil-alt"></i> Ejercicios
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-pencil-alt"></i> Ejercicios Complementarios
+                </h1>
+                <p class="text-center lead mb-4">
+                    Módulo 1: Relaciones y Funciones - Práctica adicional para reforzar tu aprendizaje
+                </p>
+            </div>
+        </div>
+
+        <!-- Progreso -->
+        <div class="progress-exercise">
+            <h5><i class="fas fa-chart-bar"></i> Tu Progreso en los Ejercicios</h5>
+            <div class="progress mb-3" style="height: 15px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="exerciseProgress">
+                    <span id="progressText">0%</span>
+                </div>
+            </div>
+            <p class="mb-0">Completa los ejercicios para mejorar tu comprensión</p>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <!-- EJERCICIO 1: Conceptos Básicos -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3><i class="fas fa-lightbulb"></i> Ejercicio 1: Conceptos Básicos</h3>
+                    <span class="difficulty-badge difficulty-basic">Básico</span>
+                </div>
+                <p class="mb-0">Dominio, rango y notación funcional</p>
+            </div>
+            <div class="exercise-body">
+                <h5>Problema:</h5>
+                <p>Dada la función $f(x) = \frac{x^2 - 4}{x - 2}$:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>a) Determina el dominio de la función</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej1a" style="height: 100px"></textarea>
+                            <label for="ej1a">Dominio de f(x)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>b) Determina el rango de la función</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej1b" style="height: 100px"></textarea>
+                            <label for="ej1b">Rango de f(x)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <h6>c) Simplifica la función si es posible</h6>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej1c" style="height: 100px"></textarea>
+                    <label for="ej1c">Función simplificada</label>
+                </div>
+
+                <div class="d-flex gap-2 mb-3">
+                    <button class="btn btn-exercise" onclick="showHint('hint1')">
+                        <i class="fas fa-lightbulb"></i> Pista
+                    </button>
+                    <button class="btn btn-exercise" onclick="checkExercise1()">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                    <button class="btn btn-exercise" onclick="showSolution('solution1')">
+                        <i class="fas fa-eye"></i> Solución
+                    </button>
+                </div>
+
+                <div id="hint1" class="hint-box">
+                    <h6><i class="fas fa-lightbulb"></i> Pista:</h6>
+                    <p>Recuerda que el dominio son todos los valores de x para los cuales la función está definida. Para funciones racionales, el denominador no puede ser cero.</p>
+                </div>
+
+                <div id="solution1" class="solution-box">
+                    <h6><i class="fas fa-check"></i> Solución:</h6>
+                    <div class="step-by-step">
+                        <h6>Paso 1: Simplificar la función</h6>
+                        <p>$f(x) = \frac{x^2 - 4}{x - 2} = \frac{(x+2)(x-2)}{x-2} = x + 2$ para $x \neq 2$</p>
+                        
+                        <h6>Paso 2: Determinar el dominio</h6>
+                        <p>Dom(f) = $\mathbb{R} - \{2\} = (-\infty, 2) \cup (2, +\infty)$</p>
+                        
+                        <h6>Paso 3: Determinar el rango</h6>
+                        <p>Ran(f) = $\mathbb{R} - \{4\} = (-\infty, 4) \cup (4, +\infty)$</p>
+                        <p>Nota: El punto (2, 4) no está incluido en la función original.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 2: Propiedades de Funciones -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3><i class="fas fa-cogs"></i> Ejercicio 2: Propiedades de Funciones</h3>
+                    <span class="difficulty-badge difficulty-intermediate">Intermedio</span>
+                </div>
+                <p class="mb-0">Inyectividad, sobreyectividad y biyectividad</p>
+            </div>
+            <div class="exercise-body">
+                <h5>Problema:</h5>
+                <p>Analiza las siguientes funciones y determina si son inyectivas, sobreyectivas o biyectivas:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>a) $f: \mathbb{R} \rightarrow \mathbb{R}$, $f(x) = x^3 - 2x$</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ej2a_injective">
+                            <label class="form-check-label">Inyectiva</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ej2a_surjective">
+                            <label class="form-check-label">Sobreyectiva</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ej2a_bijective">
+                            <label class="form-check-label">Biyectiva</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>b) $g: [0, +\infty) \rightarrow \mathbb{R}$, $g(x) = \sqrt{x}$</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ej2b_injective">
+                            <label class="form-check-label">Inyectiva</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ej2b_surjective">
+                            <label class="form-check-label">Sobreyectiva</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ej2b_bijective">
+                            <label class="form-check-label">Biyectiva</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mb-3 mt-4">
+                    <button class="btn btn-exercise" onclick="showHint('hint2')">
+                        <i class="fas fa-lightbulb"></i> Pista
+                    </button>
+                    <button class="btn btn-exercise" onclick="checkExercise2()">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                    <button class="btn btn-exercise" onclick="showSolution('solution2')">
+                        <i class="fas fa-eye"></i> Solución
+                    </button>
+                </div>
+
+                <div id="hint2" class="hint-box">
+                    <h6><i class="fas fa-lightbulb"></i> Pista:</h6>
+                    <p>Para verificar inyectividad, usa la definición: f(a) = f(b) implica a = b. Para sobreyectividad, verifica si cada elemento del codominio tiene una preimagen.</p>
+                </div>
+
+                <div id="solution2" class="solution-box">
+                    <h6><i class="fas fa-check"></i> Solución:</h6>
+                    <div class="step-by-step">
+                        <h6>Función a) f(x) = x³ - 2x</h6>
+                        <p><strong>Inyectiva:</strong> No, porque f(1) = f(-1) = -1, pero 1 ≠ -1</p>
+                        <p><strong>Sobreyectiva:</strong> Sí, porque es una función polinomial impar de grado 3</p>
+                        <p><strong>Biyectiva:</strong> No, porque no es inyectiva</p>
+                        
+                        <h6>Función b) g(x) = √x</h6>
+                        <p><strong>Inyectiva:</strong> Sí, porque √a = √b implica a = b</p>
+                        <p><strong>Sobreyectiva:</strong> No, porque el rango es [0, +∞), no todo ℝ</p>
+                        <p><strong>Biyectiva:</strong> No, porque no es sobreyectiva</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 3: Composición de Funciones -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3><i class="fas fa-layer-group"></i> Ejercicio 3: Composición de Funciones</h3>
+                    <span class="difficulty-badge difficulty-intermediate">Intermedio</span>
+                </div>
+                <p class="mb-0">Operaciones con funciones compuestas</p>
+            </div>
+            <div class="exercise-body">
+                <h5>Problema:</h5>
+                <p>Dadas las funciones $f(x) = \sqrt{x + 1}$ y $g(x) = x^2 - 3$:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>a) Encuentra $(f \circ g)(x)$</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej3a" style="height: 100px"></textarea>
+                            <label for="ej3a">(f∘g)(x)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>b) Encuentra $(g \circ f)(x)$</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej3b" style="height: 100px"></textarea>
+                            <label for="ej3b">(g∘f)(x)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>c) Determina el dominio de $(f \circ g)(x)$</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej3c" style="height: 100px"></textarea>
+                            <label for="ej3c">Dominio de (f∘g)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>d) Determina el dominio de $(g \circ f)(x)$</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej3d" style="height: 100px"></textarea>
+                            <label for="ej3d">Dominio de (g∘f)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mb-3 mt-4">
+                    <button class="btn btn-exercise" onclick="showHint('hint3')">
+                        <i class="fas fa-lightbulb"></i> Pista
+                    </button>
+                    <button class="btn btn-exercise" onclick="checkExercise3()">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                    <button class="btn btn-exercise" onclick="showSolution('solution3')">
+                        <i class="fas fa-eye"></i> Solución
+                    </button>
+                </div>
+
+                <div id="hint3" class="hint-box">
+                    <h6><i class="fas fa-lightbulb"></i> Pista:</h6>
+                    <p>Recuerda que (f∘g)(x) = f(g(x)). Para el dominio, considera las restricciones de ambas funciones.</p>
+                </div>
+
+                <div id="solution3" class="solution-box">
+                    <h6><i class="fas fa-check"></i> Solución:</h6>
+                    <div class="step-by-step">
+                        <h6>Paso 1: Composición (f∘g)(x)</h6>
+                        <p>$(f \circ g)(x) = f(g(x)) = f(x^2 - 3) = \sqrt{(x^2 - 3) + 1} = \sqrt{x^2 - 2}$</p>
+                        
+                        <h6>Paso 2: Composición (g∘f)(x)</h6>
+                        <p>$(g \circ f)(x) = g(f(x)) = g(\sqrt{x + 1}) = (\sqrt{x + 1})^2 - 3 = x + 1 - 3 = x - 2$</p>
+                        
+                        <h6>Paso 3: Dominio de (f∘g)(x)</h6>
+                        <p>$x^2 - 2 \geq 0 \Rightarrow x^2 \geq 2 \Rightarrow |x| \geq \sqrt{2}$</p>
+                        <p>Dom(f∘g) = $(-\infty, -\sqrt{2}] \cup [\sqrt{2}, +\infty)$</p>
+                        
+                        <h6>Paso 4: Dominio de (g∘f)(x)</h6>
+                        <p>Dom(g∘f) = $[-1, +\infty)$ (porque f(x) = √(x+1) requiere x ≥ -1)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 4: Función Inversa -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3><i class="fas fa-exchange-alt"></i> Ejercicio 4: Función Inversa</h3>
+                    <span class="difficulty-badge difficulty-advanced">Avanzado</span>
+                </div>
+                <p class="mb-0">Encontrar y verificar funciones inversas</p>
+            </div>
+            <div class="exercise-body">
+                <h5>Problema:</h5>
+                <p>Para la función $f(x) = \frac{2x + 3}{x - 1}$ con dominio $\mathbb{R} - \{1\}$:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>a) Demuestra que f es biyectiva</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu demostración aquí" id="ej4a" style="height: 150px"></textarea>
+                            <label for="ej4a">Demostración de biyectividad</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>b) Encuentra la función inversa $f^{-1}(x)$</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej4b" style="height: 150px"></textarea>
+                            <label for="ej4b">f⁻¹(x)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <h6>c) Verifica que $f(f^{-1}(x)) = x$ y $f^{-1}(f(x)) = x$</h6>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Escribe tu verificación aquí" id="ej4c" style="height: 150px"></textarea>
+                    <label for="ej4c">Verificación</label>
+                </div>
+
+                <div class="d-flex gap-2 mb-3 mt-4">
+                    <button class="btn btn-exercise" onclick="showHint('hint4')">
+                        <i class="fas fa-lightbulb"></i> Pista
+                    </button>
+                    <button class="btn btn-exercise" onclick="checkExercise4()">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                    <button class="btn btn-exercise" onclick="showSolution('solution4')">
+                        <i class="fas fa-eye"></i> Solución
+                    </button>
+                </div>
+
+                <div id="hint4" class="hint-box">
+                    <h6><i class="fas fa-lightbulb"></i> Pista:</h6>
+                    <p>Para demostrar biyectividad, muestra que es inyectiva y sobreyectiva. Para encontrar la inversa, resuelve y = f(x) para x en términos de y.</p>
+                </div>
+
+                <div id="solution4" class="solution-box">
+                    <h6><i class="fas fa-check"></i> Solución:</h6>
+                    <div class="step-by-step">
+                        <h6>Paso 1: Demostrar inyectividad</h6>
+                        <p>Si $f(a) = f(b)$, entonces:</p>
+                        <p>$\frac{2a + 3}{a - 1} = \frac{2b + 3}{b - 1}$</p>
+                        <p>$(2a + 3)(b - 1) = (2b + 3)(a - 1)$</p>
+                        <p>$2ab - 2a + 3b - 3 = 2ab - 2b + 3a - 3$</p>
+                        <p>$5b = 5a \Rightarrow a = b$ ✓</p>
+                        
+                        <h6>Paso 2: Demostrar sobreyectividad</h6>
+                        <p>Para cualquier $y \in \mathbb{R} - \{2\}$, necesitamos encontrar $x$ tal que $f(x) = y$</p>
+                        <p>Esto se demuestra al encontrar la inversa.</p>
+                        
+                        <h6>Paso 3: Encontrar la inversa</h6>
+                        <p>$y = \frac{2x + 3}{x - 1}$</p>
+                        <p>$y(x - 1) = 2x + 3$</p>
+                        <p>$xy - y = 2x + 3$</p>
+                        <p>$xy - 2x = y + 3$</p>
+                        <p>$x(y - 2) = y + 3$</p>
+                        <p>$x = \frac{y + 3}{y - 2}$</p>
+                        <p>Por tanto: $f^{-1}(x) = \frac{x + 3}{x - 2}$</p>
+                        
+                        <h6>Paso 4: Verificación</h6>
+                        <p>$f(f^{-1}(x)) = f\left(\frac{x + 3}{x - 2}\right) = \frac{2\frac{x + 3}{x - 2} + 3}{\frac{x + 3}{x - 2} - 1} = x$ ✓</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 5: Transformaciones -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3><i class="fas fa-magic"></i> Ejercicio 5: Transformaciones</h3>
+                    <span class="difficulty-badge difficulty-basic">Básico</span>
+                </div>
+                <p class="mb-0">Aplicar transformaciones a funciones</p>
+            </div>
+            <div class="exercise-body">
+                <h5>Problema:</h5>
+                <p>Dada la función base $f(x) = \sqrt{x}$:</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>a) Describe las transformaciones para obtener $g(x) = -\sqrt{x + 2} + 1$</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej5a" style="height: 150px"></textarea>
+                            <label for="ej5a">Transformaciones aplicadas</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>b) Determina el dominio y rango de g(x)</h6>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Escribe tu respuesta aquí" id="ej5b" style="height: 150px"></textarea>
+                            <label for="ej5b">Dominio y rango</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <h6>c) Grafica ambas funciones en el mismo sistema de coordenadas</h6>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Describe las diferencias en las gráficas" id="ej5c" style="height: 100px"></textarea>
+                    <label for="ej5c">Descripción de las gráficas</label>
+                </div>
+
+                <div class="d-flex gap-2 mb-3 mt-4">
+                    <button class="btn btn-exercise" onclick="showHint('hint5')">
+                        <i class="fas fa-lightbulb"></i> Pista
+                    </button>
+                    <button class="btn btn-exercise" onclick="checkExercise5()">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                    <button class="btn btn-exercise" onclick="showSolution('solution5')">
+                        <i class="fas fa-eye"></i> Solución
+                    </button>
+                </div>
+
+                <div id="hint5" class="hint-box">
+                    <h6><i class="fas fa-lightbulb"></i> Pista:</h6>
+                    <p>Identifica cada transformación paso a paso: traslación horizontal, reflexión vertical, y traslación vertical.</p>
+                </div>
+
+                <div id="solution5" class="solution-box">
+                    <h6><i class="fas fa-check"></i> Solución:</h6>
+                    <div class="step-by-step">
+                        <h6>Paso 1: Transformaciones aplicadas</h6>
+                        <p>Para obtener $g(x) = -\sqrt{x + 2} + 1$ desde $f(x) = \sqrt{x}$:</p>
+                        <ol>
+                            <li><strong>Traslación horizontal:</strong> 2 unidades hacia la izquierda ($x + 2$)</li>
+                            <li><strong>Reflexión vertical:</strong> sobre el eje x (signo negativo)</li>
+                            <li><strong>Traslación vertical:</strong> 1 unidad hacia arriba ($+1$)</li>
+                        </ol>
+                        
+                        <h6>Paso 2: Dominio y rango</h6>
+                        <p><strong>Dominio de g:</strong> $[-2, +\infty)$ (porque $x + 2 \geq 0$)</p>
+                        <p><strong>Rango de g:</strong> $(-\infty, 1]$ (porque $-\sqrt{x + 2} \leq 0$ y luego $+1$)</p>
+                        
+                        <h6>Paso 3: Descripción de las gráficas</h6>
+                        <p>La gráfica de g(x) es la gráfica de f(x) desplazada 2 unidades a la izquierda, reflejada sobre el eje x, y luego desplazada 1 unidad hacia arriba.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMEN Y EVALUACIÓN -->
+        <div class="exercise-card">
+            <div class="exercise-header">
+                <h3><i class="fas fa-trophy"></i> Resumen y Evaluación Final</h3>
+                <p class="mb-0">Consolida tu aprendizaje con esta evaluación integral</p>
+            </div>
+            <div class="exercise-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Conceptos Clave Dominados:</h5>
+                        <div id="conceptsChecklist">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="concept1">
+                                <label class="form-check-label">Definición de función y relación</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="concept2">
+                                <label class="form-check-label">Dominio y rango</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="concept3">
+                                <label class="form-check-label">Funciones inyectivas, sobreyectivas y biyectivas</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="concept4">
+                                <label class="form-check-label">Composición de funciones</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="concept5">
+                                <label class="form-check-input" type="checkbox" id="concept5">
+                                <label class="form-check-label">Función inversa</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="concept6">
+                                <label class="form-check-label">Transformaciones de funciones</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Tu Progreso:</h5>
+                        <div class="progress mb-3" style="height: 20px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="finalProgress">
+                                <span id="finalProgressText">0%</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-exercise w-100" onclick="calculateFinalProgress()">
+                            <i class="fas fa-calculator"></i> Calcular Progreso Final
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h5>Reflexión Personal:</h5>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Reflexiona sobre tu aprendizaje en este módulo" id="reflection" style="height: 100px"></textarea>
+                        <label for="reflection">¿Qué conceptos te resultaron más desafiantes? ¿Qué estrategias te ayudaron más?</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-graduation-cap"></i> 
+                Ejercicios Complementarios - Módulo 1: Relaciones y Funciones
+            </p>
+            <p class="mb-0">
+                <small>Practica y refuerza tu comprensión del cálculo diferencial</small>
+            </p>
+            <hr class="my-2" style="border-color: rgba(255,255,255,0.3);">
+            <p class="mb-0">
+                <small>&copy; JMGV-PTEL-2025. TODOS LOS DERECHOS RESERVADOS.</small>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let completedExercises = new Set();
+
+        // Función para mostrar pistas
+        function showHint(hintId) {
+            const hint = document.getElementById(hintId);
+            if (hint.style.display === 'none' || hint.style.display === '') {
+                hint.style.display = 'block';
+            } else {
+                hint.style.display = 'none';
+            }
+        }
+
+        // Función para mostrar soluciones
+        function showSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+            } else {
+                solution.style.display = 'none';
+            }
+        }
+
+        // Verificar ejercicio 1
+        function checkExercise1() {
+            const ej1a = document.getElementById('ej1a').value.toLowerCase();
+            const ej1b = document.getElementById('ej1b').value.toLowerCase();
+            const ej1c = document.getElementById('ej1c').value.toLowerCase();
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            if (ej1a.includes('(-∞, 2)') || ej1a.includes('(-inf, 2)') || ej1a.includes('ℝ - {2}')) {
+                feedback += '<p>✅ Dominio correcto: (-∞, 2) ∪ (2, +∞)</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Dominio incorrecto. Correcto: (-∞, 2) ∪ (2, +∞)</p>';
+            }
+            
+            if (ej1b.includes('(-∞, 4)') || ej1b.includes('(-inf, 4)') || ej1b.includes('ℝ - {4}')) {
+                feedback += '<p>✅ Rango correcto: (-∞, 4) ∪ (4, +∞)</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Rango incorrecto. Correcto: (-∞, 4) ∪ (4, +∞)</p>';
+            }
+            
+            if (ej1c.includes('x + 2') || ej1c.includes('x+2')) {
+                feedback += '<p>✅ Simplificación correcta: x + 2 (para x ≠ 2)</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Simplificación incorrecta. Correcto: x + 2 (para x ≠ 2)</p>';
+            }
+            
+            alert(feedback + `\n\nPuntuación: ${score}/3`);
+            
+            if (score >= 2) {
+                completedExercises.add('ejercicio1');
+                updateProgress();
+            }
+        }
+
+        // Verificar ejercicio 2
+        function checkExercise2() {
+            const ej2a_injective = document.getElementById('ej2a_injective').checked;
+            const ej2a_surjective = document.getElementById('ej2a_surjective').checked;
+            const ej2a_bijective = document.getElementById('ej2a_bijective').checked;
+            
+            const ej2b_injective = document.getElementById('ej2b_injective').checked;
+            const ej2b_surjective = document.getElementById('ej2b_surjective').checked;
+            const ej2b_bijective = document.getElementById('ej2b_bijective').checked;
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            // Función a: f(x) = x³ - 2x
+            if (!ej2a_injective && ej2a_surjective && !ej2a_bijective) {
+                feedback += '<p>✅ Función a) correcta: No inyectiva, sí sobreyectiva, no biyectiva</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Función a) incorrecta. Correcto: No inyectiva, sí sobreyectiva, no biyectiva</p>';
+            }
+            
+            // Función b: g(x) = √x
+            if (ej2b_injective && !ej2b_surjective && !ej2b_bijective) {
+                feedback += '<p>✅ Función b) correcta: Sí inyectiva, no sobreyectiva, no biyectiva</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Función b) incorrecta. Correcto: Sí inyectiva, no sobreyectiva, no biyectiva</p>';
+            }
+            
+            alert(feedback + `\n\nPuntuación: ${score}/2`);
+            
+            if (score >= 1) {
+                completedExercises.add('ejercicio2');
+                updateProgress();
+            }
+        }
+
+        // Verificar ejercicio 3
+        function checkExercise3() {
+            const ej3a = document.getElementById('ej3a').value.toLowerCase();
+            const ej3b = document.getElementById('ej3b').value.toLowerCase();
+            const ej3c = document.getElementById('ej3c').value.toLowerCase();
+            const ej3d = document.getElementById('ej3d').value.toLowerCase();
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            if (ej3a.includes('√(x² - 2)') || ej3a.includes('sqrt(x² - 2)')) {
+                feedback += '<p>✅ (f∘g)(x) correcto: √(x² - 2)</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ (f∘g)(x) incorrecto. Correcto: √(x² - 2)</p>';
+            }
+            
+            if (ej3b.includes('x - 2')) {
+                feedback += '<p>✅ (g∘f)(x) correcto: x - 2</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ (g∘f)(x) incorrecto. Correcto: x - 2</p>';
+            }
+            
+            if (ej3c.includes('(-∞, -√2)') && ej3c.includes('(√2, +∞)')) {
+                feedback += '<p>✅ Dominio de (f∘g) correcto</p>';
+                score += 0.5;
+            } else {
+                feedback += '<p>❌ Dominio de (f∘g) incorrecto</p>';
+            }
+            
+            if (ej3d.includes('[-1, +∞)')) {
+                feedback += '<p>✅ Dominio de (g∘f) correcto</p>';
+                score += 0.5;
+            } else {
+                feedback += '<p>❌ Dominio de (g∘f) incorrecto</p>';
+            }
+            
+            alert(feedback + `\n\nPuntuación: ${score}/3`);
+            
+            if (score >= 2) {
+                completedExercises.add('ejercicio3');
+                updateProgress();
+            }
+        }
+
+        // Verificar ejercicio 4
+        function checkExercise4() {
+            const ej4a = document.getElementById('ej4a').value.toLowerCase();
+            const ej4b = document.getElementById('ej4b').value.toLowerCase();
+            const ej4c = document.getElementById('ej4c').value.toLowerCase();
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            if (ej4a.includes('inyectiva') || ej4a.includes('sobreyectiva') || ej4a.includes('biyectiva')) {
+                feedback += '<p>✅ Demostración de biyectividad presentada</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Falta la demostración de biyectividad</p>';
+            }
+            
+            if (ej4b.includes('(x + 3)/(x - 2)')) {
+                feedback += '<p>✅ Función inversa correcta: (x + 3)/(x - 2)</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Función inversa incorrecta. Correcto: (x + 3)/(x - 2)</p>';
+            }
+            
+            if (ej4c.includes('verificación') || ej4c.includes('comprobación')) {
+                feedback += '<p>✅ Verificación presentada</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Falta la verificación</p>';
+            }
+            
+            alert(feedback + `\n\nPuntuación: ${score}/3`);
+            
+            if (score >= 2) {
+                completedExercices.add('ejercicio4');
+                updateProgress();
+            }
+        }
+
+        // Verificar ejercicio 5
+        function checkExercise5() {
+            const ej5a = document.getElementById('ej5a').value.toLowerCase();
+            const ej5b = document.getElementById('ej5b').value.toLowerCase();
+            const ej5c = document.getElementById('ej5c').value.toLowerCase();
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            if (ej5a.includes('izquierda') || ej5a.includes('reflexión') || ej5a.includes('arriba')) {
+                feedback += '<p>✅ Transformaciones identificadas correctamente</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Transformaciones incorrectas</p>';
+            }
+            
+            if (ej5b.includes('[-2, +∞)') || ej5b.includes('(-∞, 1]')) {
+                feedback += '<p>✅ Dominio y rango correctos</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Dominio y rango incorrectos</p>';
+            }
+            
+            if (ej5c.includes('gráfica') || ej5c.includes('transformación')) {
+                feedback += '<p>✅ Descripción de gráficas presentada</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Falta descripción de gráficas</p>';
+            }
+            
+            alert(feedback + `\n\nPuntuación: ${score}/3`);
+            
+            if (score >= 2) {
+                completedExercises.add('ejercicio5');
+                updateProgress();
+            }
+        }
+
+        // Actualizar progreso general
+        function updateProgress() {
+            const progress = (completedExercises.size / 5) * 100;
+            document.getElementById('exerciseProgress').style.width = progress + '%';
+            document.getElementById('progressText').textContent = Math.round(progress) + '%';
+        }
+
+        // Calcular progreso final
+        function calculateFinalProgress() {
+            const concepts = document.querySelectorAll('#conceptsChecklist input[type="checkbox"]');
+            let conceptsChecked = 0;
+            concepts.forEach(checkbox => {
+                if (checkbox.checked) conceptsChecked++;
+            });
+            
+            const exercisesProgress = (completedExercises.size / 5) * 50;
+            const conceptsProgress = (conceptsChecked / concepts.length) * 50;
+            const finalProgress = exercisesProgress + conceptsProgress;
+            
+            document.getElementById('finalProgress').style.width = finalProgress + '%';
+            document.getElementById('finalProgressText').textContent = Math.round(finalProgress) + '%';
+            
+            let message = '';
+            if (finalProgress >= 90) {
+                message = '¡Excelente trabajo! Has dominado completamente el Módulo 1.';
+            } else if (finalProgress >= 70) {
+                message = '¡Muy buen trabajo! Has comprendido la mayoría de los conceptos.';
+            } else if (finalProgress >= 50) {
+                message = 'Buen progreso. Continúa trabajando en las áreas que necesitan refuerzo.';
+            } else {
+                message = 'Continúa estudiando y practicando. Revisa los conceptos fundamentales.';
+            }
+            
+            alert(`Progreso Final: ${Math.round(finalProgress)}%\n\n${message}`);
+        }
+
+        // Actualizar MathJax cuando sea necesario
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4: La Derivada - Cálculo Diferencial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/function-plot@1/dist/function-plot.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .module-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .module-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .module-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .topic-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .topic-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .interactive-demo {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+        
+        .demo-title {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .graph-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .exercise-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .exercise-title {
+            color: #1976d2;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .formula-box {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .formula {
+            font-size: 1.2rem;
+            color: #7b1fa2;
+            font-weight: 600;
+        }
+        
+        .btn-interactive {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .btn-interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .progress-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .progress-title {
+            color: #856404;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .step {
+            background: #e9ecef;
+            color: #6c757d;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .navigation {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #495057;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .quiz-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .quiz-options {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background: #e9ecef;
+        }
+        
+        .quiz-option.selected {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        @media (max-width: 768px) {
+            .navigation {
+                display: none;
+            }
+            
+            .main-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .module-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación lateral -->
+    <div class="navigation">
+        <a href="#concepto" class="nav-item active">4.1 Concepto</a>
+        <a href="#reglas" class="nav-item">4.2 Reglas</a>
+        <a href="#especiales" class="nav-item">4.3 Especiales</a>
+        <a href="#superiores" class="nav-item">4.4 Superiores</a>
+        <a href="#implicita" class="nav-item">4.5 Implícita</a>
+        <a href="#actividades" class="nav-item">Actividades</a>
+        <a href="#evaluacion" class="nav-item">Evaluación</a>
+    </div>
+
+    <div class="main-container">
+        <!-- Header del Módulo -->
+        <div class="module-header">
+            <h1 class="module-title">
+                <i class="fas fa-function"></i>
+                Módulo 4: La Derivada
+            </h1>
+            <p class="module-subtitle">
+                Comprende el concepto de derivada, sus interpretaciones y técnicas de derivación
+            </p>
+        </div>
+
+        <!-- Progreso del Módulo -->
+        <div class="progress-section">
+            <div class="progress-title">
+                <i class="fas fa-chart-line"></i> Progreso del Módulo
+            </div>
+            <div class="step-indicator">
+                <div class="step completed" data-step="1">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="step active" data-step="2">2</div>
+                <div class="step" data-step="3">3</div>
+                <div class="step" data-step="4">4</div>
+                <div class="step" data-step="5">5</div>
+                <div class="step" data-step="6">6</div>
+            </div>
+        </div>
+
+        <!-- 4.1 Concepto de Derivada -->
+        <div id="concepto" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-lightbulb"></i>
+                4.1 Concepto de Derivada (4 horas)
+            </div>
+            
+            <div class="content-section">
+                <h4>Definición de Derivada como Límite</h4>
+                <p>La derivada de una función f(x) en un punto x = a se define como:</p>
+                <div class="formula-box">
+                    <div class="formula">
+                        $$f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$$
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-play-circle"></i>
+                        Visualización de la Derivada
+                    </div>
+                    <div class="graph-container">
+                        <div id="derivative-graph"></div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="function-input">Función: </label>
+                        <input type="text" id="function-input" value="x^2" class="form-control d-inline-block w-auto">
+                        <button class="btn-interactive" onclick="plotDerivative()">
+                            <i class="fas fa-chart-line"></i> Graficar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Interpretación Geométrica</h4>
+                <p>La derivada representa la <strong>pendiente de la recta tangente</strong> a la curva en el punto dado.</p>
+                
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-ruler"></i>
+                        Recta Tangente
+                    </div>
+                    <div class="graph-container">
+                        <div id="tangent-graph"></div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="point-x">Punto x: </label>
+                        <input type="number" id="point-x" value="1" step="0.1" class="form-control d-inline-block w-auto">
+                        <button class="btn-interactive" onclick="plotTangent()">
+                            <i class="fas fa-draw-polygon"></i> Mostrar Tangente
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Interpretación Física</h4>
+                <p>La derivada representa la <strong>velocidad instantánea</strong> en problemas de movimiento.</p>
+                
+                <div class="exercise-box">
+                    <div class="exercise-title">
+                        <i class="fas fa-car"></i>
+                        Ejemplo: Movimiento Rectilíneo
+                    </div>
+                    <p>Si la posición de un objeto está dada por $s(t) = t^2 + 3t + 1$, entonces:</p>
+                    <ul>
+                        <li>La velocidad instantánea es: $v(t) = s'(t) = 2t + 3$</li>
+                        <li>En t = 2 segundos: $v(2) = 2(2) + 3 = 7$ m/s</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Derivabilidad y Continuidad</h4>
+                <div class="formula-box">
+                    <div class="formula">
+                        Si f es derivable en a, entonces f es continua en a
+                    </div>
+                </div>
+                <p><strong>Nota:</strong> El recíproco no es cierto. Una función puede ser continua pero no derivable.</p>
+            </div>
+        </div>
+
+        <!-- 4.2 Reglas de Derivación -->
+        <div id="reglas" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-calculator"></i>
+                4.2 Reglas de Derivación (6 horas)
+            </div>
+            
+            <div class="content-section">
+                <h4>Reglas Básicas</h4>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        <strong>1. Derivada de constante:</strong> $\frac{d}{dx}[c] = 0$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        <strong>2. Regla de la potencia:</strong> $\frac{d}{dx}[x^n] = nx^{n-1}$
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-brain"></i>
+                        Calculadora de Derivadas
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="derivative-input">Función:</label>
+                            <input type="text" id="derivative-input" value="x^3" class="form-control">
+                            <button class="btn-interactive mt-2" onclick="calculateDerivative()">
+                                <i class="fas fa-equals"></i> Calcular Derivada
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Resultado:</label>
+                            <div id="derivative-result" class="form-control bg-light">
+                                Ingresa una función y haz clic en calcular
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Reglas de Operaciones</h4>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        <strong>3. Regla del producto:</strong> $\frac{d}{dx}[f(x) \cdot g(x)] = f'(x)g(x) + f(x)g'(x)$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        <strong>4. Regla del cociente:</strong> $\frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        <strong>5. Regla de la cadena:</strong> $\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)$
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Ejercicios Interactivos</h4>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        ¿Cuál es la derivada de $f(x) = x^4 + 3x^2 - 2x + 5$?
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="A">$4x^3 + 6x - 2$</div>
+                        <div class="quiz-option" data-answer="B">$4x^3 + 3x - 2$</div>
+                        <div class="quiz-option" data-answer="C">$4x^4 + 6x^2 - 2x$</div>
+                        <div class="quiz-option" data-answer="D">$4x^3 + 6x^2 - 2$</div>
+                    </div>
+                    <div class="feedback" id="feedback1">
+                        ¡Correcto! Aplicando la regla de la potencia: $f'(x) = 4x^3 + 6x - 2$
+                    </div>
+                    <button class="btn-interactive" onclick="checkAnswer('feedback1')">
+                        <i class="fas fa-check"></i> Verificar Respuesta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.3 Derivadas de Funciones Especiales -->
+        <div id="especiales" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-star"></i>
+                4.3 Derivadas de Funciones Especiales (4 horas)
+            </div>
+            
+            <div class="content-section">
+                <h4>Derivadas Trigonométricas</h4>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        $\frac{d}{dx}[\sin x] = \cos x$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        $\frac{d}{dx}[\cos x] = -\sin x$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        $\frac{d}{dx}[\tan x] = \sec^2 x$
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Derivadas Exponenciales y Logarítmicas</h4>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        $\frac{d}{dx}[e^x] = e^x$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        $\frac{d}{dx}[\ln x] = \frac{1}{x}$
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">
+                        $\frac{d}{dx}[a^x] = a^x \ln a$
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Visualización de Funciones Especiales</h4>
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-chart-sine"></i>
+                        Gráficas de Funciones y sus Derivadas
+                    </div>
+                    <div class="graph-container">
+                        <div id="special-functions-graph"></div>
+                    </div>
+                    <div class="mt-3">
+                        <select id="function-type" class="form-select d-inline-block w-auto">
+                            <option value="sin">Seno</option>
+                            <option value="cos">Coseno</option>
+                            <option value="exp">Exponencial</option>
+                            <option value="ln">Logaritmo</option>
+                        </select>
+                        <button class="btn-interactive" onclick="plotSpecialFunction()">
+                            <i class="fas fa-chart-line"></i> Graficar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.4 Derivadas de Orden Superior -->
+        <div id="superiores" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-layer-group"></i>
+                4.4 Derivadas de Orden Superior (3 horas)
+            </div>
+            
+            <div class="content-section">
+                <h4>Segunda Derivada</h4>
+                <p>La segunda derivada es la derivada de la primera derivada:</p>
+                <div class="formula-box">
+                    <div class="formula">
+                        $f''(x) = \frac{d}{dx}[f'(x)]$
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-chart-area"></i>
+                        Visualización de Derivadas de Orden Superior
+                    </div>
+                    <div class="graph-container">
+                        <div id="higher-order-graph"></div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="higher-order-function">Función:</label>
+                        <input type="text" id="higher-order-function" value="x^3" class="form-control d-inline-block w-auto">
+                        <button class="btn-interactive" onclick="plotHigherOrder()">
+                            <i class="fas fa-chart-line"></i> Graficar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Notación de Leibniz</h4>
+                <div class="formula-box">
+                    <div class="formula">
+                        $f'(x) = \frac{dy}{dx}$, $f''(x) = \frac{d^2y}{dx^2}$, $f'''(x) = \frac{d^3y}{dx^3}$
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Aplicaciones de la Segunda Derivada</h4>
+                <ul>
+                    <li><strong>Concavidad:</strong> Si $f''(x) > 0$, la función es cóncava hacia arriba</li>
+                    <li><strong>Puntos de inflexión:</strong> Donde $f''(x) = 0$ o no existe</li>
+                    <li><strong>Aceleración:</strong> En problemas de movimiento</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4.5 Derivación Implícita -->
+        <div id="implicita" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-puzzle-piece"></i>
+                4.5 Derivación Implícita (3 horas)
+            </div>
+            
+            <div class="content-section">
+                <h4>Concepto de Derivación Implícita</h4>
+                <p>Cuando una función está definida implícitamente por una ecuación, usamos derivación implícita para encontrar $\frac{dy}{dx}$.</p>
+                
+                <div class="exercise-box">
+                    <div class="exercise-title">
+                        <i class="fas fa-example"></i>
+                        Ejemplo: Círculo
+                    </div>
+                    <p>Dada la ecuación $x^2 + y^2 = 25$ (círculo de radio 5):</p>
+                    <ol>
+                        <li>Derivamos ambos lados con respecto a x</li>
+                        <li>$2x + 2y\frac{dy}{dx} = 0$</li>
+                        <li>Despejamos: $\frac{dy}{dx} = -\frac{x}{y}$</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Proceso de Derivación Implícita</h4>
+                <div class="step-indicator">
+                    <div class="step completed">1</div>
+                    <div class="step completed">2</div>
+                    <div class="step completed">3</div>
+                    <div class="step">4</div>
+                </div>
+                <ol>
+                    <li><strong>Derivar ambos lados:</strong> Aplicar $\frac{d}{dx}$ a cada término</li>
+                    <li><strong>Usar regla de la cadena:</strong> Para términos con y, multiplicar por $\frac{dy}{dx}$</li>
+                    <li><strong>Agrupar términos:</strong> Reunir todos los términos con $\frac{dy}{dx}$</li>
+                    <li><strong>Despejar:</strong> Resolver para $\frac{dy}{dx}$</li>
+                </ol>
+            </div>
+
+            <div class="content-section">
+                <h4>Ejercicio Interactivo</h4>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        Para la ecuación $x^3 + y^3 = 6xy$, encuentra $\frac{dy}{dx}$:
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="A">$\frac{dy}{dx} = \frac{2y - x^2}{y^2 - 2x}$</div>
+                        <div class="quiz-option" data-answer="B">$\frac{dy}{dx} = \frac{y^2 - 2x}{2y - x^2}$</div>
+                        <div class="quiz-option" data-answer="C">$\frac{dy}{dx} = \frac{3x^2 - 6y}{6x - 3y^2}$</div>
+                        <div class="quiz-option" data-answer="D">$\frac{dy}{dx} = \frac{6x - 3y^2}{3x^2 - 6y}$</div>
+                    </div>
+                    <div class="feedback" id="feedback2">
+                        ¡Correcto! Derivando: $3x^2 + 3y^2\frac{dy}{dx} = 6y + 6x\frac{dy}{dx}$
+                    </div>
+                    <button class="btn-interactive" onclick="checkAnswer('feedback2')">
+                        <i class="fas fa-check"></i> Verificar Respuesta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actividades de Aprendizaje -->
+        <div id="actividades" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-tasks"></i>
+                Actividades de Aprendizaje
+            </div>
+            
+            <div class="content-section">
+                <h4>Actividad 1: Calculadora de Derivadas</h4>
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-calculator"></i>
+                        Practica Derivando
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Ejercicios Propuestos:</h5>
+                            <ol>
+                                <li>$f(x) = x^5 - 3x^3 + 2x^2 - x + 1$</li>
+                                <li>$f(x) = \sin(x) + \cos(x)$</li>
+                                <li>$f(x) = e^{2x} + \ln(x)$</li>
+                                <li>$f(x) = x^2 \cdot \sin(x)$</li>
+                                <li>$f(x) = \frac{x^2 + 1}{x - 1}$</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="exercise-box">
+                                <div class="exercise-title">
+                                    <i class="fas fa-key"></i>
+                                    Soluciones
+                                </div>
+                                <ol>
+                                    <li>$f'(x) = 5x^4 - 9x^2 + 4x - 1$</li>
+                                    <li>$f'(x) = \cos(x) - \sin(x)$</li>
+                                    <li>$f'(x) = 2e^{2x} + \frac{1}{x}$</li>
+                                    <li>$f'(x) = 2x\sin(x) + x^2\cos(x)$</li>
+                                    <li>$f'(x) = \frac{x^2 - 2x - 1}{(x-1)^2}$</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Actividad 2: Laboratorio de Derivadas</h4>
+                <div class="interactive-demo">
+                    <div class="demo-title">
+                        <i class="fas fa-flask"></i>
+                        Análisis de Funciones
+                    </div>
+                    <p>Analiza las siguientes funciones y determina:</p>
+                    <ul>
+                        <li>Puntos críticos (donde f'(x) = 0)</li>
+                        <li>Intervalos de crecimiento y decrecimiento</li>
+                        <li>Concavidad usando la segunda derivada</li>
+                    </ul>
+                    
+                    <div class="graph-container">
+                        <div id="analysis-graph"></div>
+                    </div>
+                    <div class="mt-3">
+                        <label for="analysis-function">Función a analizar:</label>
+                        <input type="text" id="analysis-function" value="x^3 - 3x^2 + 2" class="form-control d-inline-block w-auto">
+                        <button class="btn-interactive" onclick="analyzeFunction()">
+                            <i class="fas fa-search"></i> Analizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluación -->
+        <div id="evaluacion" class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-clipboard-check"></i>
+                Evaluación del Módulo
+            </div>
+            
+            <div class="content-section">
+                <h4>Examen Parcial</h4>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        1. Calcula la derivada de $f(x) = 3x^4 - 2x^3 + 5x^2 - 7x + 1$
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="A">$12x^3 - 6x^2 + 10x - 7$</div>
+                        <div class="quiz-option" data-answer="B">$12x^3 - 6x^2 + 5x - 7$</div>
+                        <div class="quiz-option" data-answer="C">$3x^3 - 2x^2 + 5x - 7$</div>
+                        <div class="quiz-option" data-answer="D">$12x^4 - 6x^3 + 10x^2 - 7x$</div>
+                    </div>
+                    <div class="feedback" id="exam1">
+                        ¡Correcto! Aplicando la regla de la potencia a cada término.
+                    </div>
+                    <button class="btn-interactive" onclick="checkAnswer('exam1')">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        2. Encuentra la derivada de $f(x) = x^2 \sin(x)$ usando la regla del producto
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="A">$2x \sin(x) + x^2 \cos(x)$</div>
+                        <div class="quiz-option" data-answer="B">$x^2 \cos(x)$</div>
+                        <div class="quiz-option" data-answer="C">$2x \sin(x)$</div>
+                        <div class="quiz-option" data-answer="D">$2x \cos(x) + x^2 \sin(x)$</div>
+                    </div>
+                    <div class="feedback" id="exam2">
+                        ¡Correcto! Regla del producto: $(x^2)'\sin(x) + x^2(\sin(x))' = 2x\sin(x) + x^2\cos(x)$
+                    </div>
+                    <button class="btn-interactive" onclick="checkAnswer('exam2')">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        3. Para la ecuación implícita $x^2 + y^2 = 16$, encuentra $\frac{dy}{dx}$
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-answer="A">$\frac{dy}{dx} = \frac{x}{y}$</div>
+                        <div class="quiz-option" data-answer="B">$\frac{dy}{dx} = -\frac{x}{y}$</div>
+                        <div class="quiz-option" data-answer="C">$\frac{dy}{dx} = \frac{y}{x}$</div>
+                        <div class="quiz-option" data-answer="D">$\frac{dy}{dx} = -\frac{y}{x}$</div>
+                    </div>
+                    <div class="feedback" id="exam3">
+                        ¡Correcto! Derivando: $2x + 2y\frac{dy}{dx} = 0$, entonces $\frac{dy}{dx} = -\frac{x}{y}$
+                    </div>
+                    <button class="btn-interactive" onclick="checkAnswer('exam3')">
+                        <i class="fas fa-check"></i> Verificar
+                    </button>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h4>Criterios de Evaluación</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Examen Parcial (50%)</h5>
+                        <ul>
+                            <li>Comprensión conceptual: 30%</li>
+                            <li>Aplicación de técnicas: 40%</li>
+                            <li>Resolución de problemas: 30%</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Tareas y Ejercicios (30%)</h5>
+                        <ul>
+                            <li>Ejercicios diarios: 50%</li>
+                            <li>Proyectos de aplicación: 30%</li>
+                            <li>Participación en clase: 20%</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h5>Laboratorio de Derivadas (20%)</h5>
+                        <ul>
+                            <li>Uso de software matemático: 40%</li>
+                            <li>Análisis gráfico: 30%</li>
+                            <li>Interpretación de resultados: 30%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Funciones para gráficos interactivos
+        function plotDerivative() {
+            const functionInput = document.getElementById('function-input').value;
+            try {
+                functionPlot({
+                    target: '#derivative-graph',
+                    width: 500,
+                    height: 300,
+                    grid: true,
+                    data: [
+                        {
+                            fn: functionInput,
+                            color: 'blue',
+                            graphType: 'polyline'
+                        }
+                    ]
+                });
+            } catch (error) {
+                alert('Error al graficar la función. Verifica la sintaxis.');
+            }
+        }
+
+        function plotTangent() {
+            const pointX = parseFloat(document.getElementById('point-x').value);
+            const functionInput = document.getElementById('function-input').value;
+            
+            try {
+                // Calcular la derivada numéricamente
+                const h = 0.001;
+                const f = new Function('x', `return ${functionInput.replace(/x/g, 'x')}`);
+                const derivative = (f(pointX + h) - f(pointX)) / h;
+                const y = f(pointX);
+                
+                // Ecuación de la recta tangente
+                const tangentSlope = derivative;
+                const tangentIntercept = y - tangentSlope * pointX;
+                
+                functionPlot({
+                    target: '#tangent-graph',
+                    width: 500,
+                    height: 300,
+                    grid: true,
+                    data: [
+                        {
+                            fn: functionInput,
+                            color: 'blue',
+                            graphType: 'polyline'
+                        },
+                        {
+                            fn: `${tangentSlope} * x + ${tangentIntercept}`,
+                            color: 'red',
+                            graphType: 'polyline'
+                        }
+                    ]
+                });
+            } catch (error) {
+                alert('Error al calcular la tangente.');
+            }
+        }
+
+        function calculateDerivative() {
+            const input = document.getElementById('derivative-input').value;
+            const result = document.getElementById('derivative-result');
+            
+            // Simulación de cálculo de derivada (en una implementación real usarías una librería como math.js)
+            let derivative = '';
+            
+            if (input.includes('x^')) {
+                const match = input.match(/x\^(\d+)/);
+                if (match) {
+                    const power = parseInt(match[1]);
+                    derivative = `${power}x^${power-1}`;
+                }
+            } else if (input.includes('sin(x)')) {
+                derivative = 'cos(x)';
+            } else if (input.includes('cos(x)')) {
+                derivative = '-sin(x)';
+            } else if (input.includes('e^x')) {
+                derivative = 'e^x';
+            } else {
+                derivative = 'Función no reconocida';
+            }
+            
+            result.textContent = `f'(x) = ${derivative}`;
+        }
+
+        function plotSpecialFunction() {
+            const functionType = document.getElementById('function-type').value;
+            let functions = [];
+            
+            switch(functionType) {
+                case 'sin':
+                    functions = [
+                        {fn: 'sin(x)', color: 'blue'},
+                        {fn: 'cos(x)', color: 'red'}
+                    ];
+                    break;
+                case 'cos':
+                    functions = [
+                        {fn: 'cos(x)', color: 'blue'},
+                        {fn: '-sin(x)', color: 'red'}
+                    ];
+                    break;
+                case 'exp':
+                    functions = [
+                        {fn: 'e^x', color: 'blue'},
+                        {fn: 'e^x', color: 'red'}
+                    ];
+                    break;
+                case 'ln':
+                    functions = [
+                        {fn: 'ln(x)', color: 'blue'},
+                        {fn: '1/x', color: 'red'}
+                    ];
+                    break;
+            }
+            
+            functionPlot({
+                target: '#special-functions-graph',
+                width: 500,
+                height: 300,
+                grid: true,
+                data: functions
+            });
+        }
+
+        function plotHigherOrder() {
+            const functionInput = document.getElementById('higher-order-function').value;
+            
+            try {
+                functionPlot({
+                    target: '#higher-order-graph',
+                    width: 500,
+                    height: 300,
+                    grid: true,
+                    data: [
+                        {
+                            fn: functionInput,
+                            color: 'blue',
+                            graphType: 'polyline'
+                        }
+                    ]
+                });
+            } catch (error) {
+                alert('Error al graficar la función.');
+            }
+        }
+
+        function analyzeFunction() {
+            const functionInput = document.getElementById('analysis-function').value;
+            
+            try {
+                functionPlot({
+                    target: '#analysis-graph',
+                    width: 500,
+                    height: 300,
+                    grid: true,
+                    data: [
+                        {
+                            fn: functionInput,
+                            color: 'blue',
+                            graphType: 'polyline'
+                        }
+                    ]
+                });
+                
+                // Mostrar análisis (simplificado)
+                alert('Análisis de la función:\n- Puntos críticos: x = 0, x = 2\n- Crece en: (-∞, 0) ∪ (2, ∞)\n- Decrece en: (0, 2)\n- Cóncava hacia arriba en: (1, ∞)\n- Cóncava hacia abajo en: (-∞, 1)');
+            } catch (error) {
+                alert('Error al analizar la función.');
+            }
+        }
+
+        function checkAnswer(feedbackId) {
+            const feedback = document.getElementById(feedbackId);
+            feedback.style.display = 'block';
+            feedback.classList.add('correct');
+        }
+
+        // Navegación suave
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Actualizar navegación activa
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Actualizar navegación al hacer scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.topic-card');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Inicializar gráficos al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            plotDerivative();
+            plotTangent();
+            plotSpecialFunction();
+        });
+    </script>
+</body>
+</html>

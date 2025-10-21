@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios y Problemas - Módulo 4: La Derivada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="modulo4-styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .exercise-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+        
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .difficulty-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .difficulty-basic {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .solution-toggle {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-toggle:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        
+        .solution {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .solution.show {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .step-by-step {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #2196f3;
+        }
+        
+        .progress-indicator {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar-custom {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill-custom {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .timer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .timer-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #856404;
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #b8860b;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="modulo4-container">
+    <div class="main-container">
+        <!-- Header -->
+        <div class="module-header">
+            <h1 class="module-title">
+                <i class="fas fa-dumbbell"></i>
+                Ejercicios y Problemas
+            </h1>
+            <p class="module-subtitle">
+                Practica y domina las técnicas de derivación
+            </p>
+        </div>
+
+        <!-- Progreso del Estudiante -->
+        <div class="progress-indicator">
+            <h4><i class="fas fa-chart-line"></i> Tu Progreso</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Ejercicios Completados: <strong id="completed-count">0</strong> / <span id="total-count">25</span></p>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill-custom" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p>Puntuación Actual: <strong id="current-score">0</strong> puntos</p>
+                    <p>Logros Desbloqueados: <span id="achievements-count">0</span></p>
+                </div>
+            </div>
+            <div id="achievements-container"></div>
+        </div>
+
+        <!-- Timer para Ejercicios -->
+        <div class="timer">
+            <h5><i class="fas fa-clock"></i> Tiempo de Práctica</h5>
+            <div class="timer-display" id="timer-display">00:00:00</div>
+            <button class="btn btn-primary" id="timer-toggle">Iniciar Timer</button>
+        </div>
+
+        <!-- Nivel Básico -->
+        <div class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-seedling"></i>
+                Nivel Básico - Reglas Fundamentales
+            </div>
+            
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-basic">Básico</div>
+                    <h5>Ejercicio 1: Regla de la Potencia</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = x^5 - 3x^3 + 2x - 1$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol1')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol1">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Identificamos cada término
+                                <br>$f(x) = x^5 - 3x^3 + 2x - 1$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos la regla de la potencia a cada término
+                                <br>$\frac{d}{dx}[x^5] = 5x^4$
+                                <br>$\frac{d}{dx}[-3x^3] = -9x^2$
+                                <br>$\frac{d}{dx}[2x] = 2$
+                                <br>$\frac{d}{dx}[-1] = 0$
+                            </div>
+                            <div class="step">
+                                <strong>Resultado:</strong> $f'(x) = 5x^4 - 9x^2 + 2$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-basic">Básico</div>
+                    <h5>Ejercicio 2: Derivadas de Constantes</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = 4x^2 + 7x - 5$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol2')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol2">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Derivamos término por término
+                                <br>$f'(x) = \frac{d}{dx}[4x^2] + \frac{d}{dx}[7x] + \frac{d}{dx}[-5]$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos las reglas
+                                <br>$f'(x) = 8x + 7 + 0$
+                            </div>
+                            <div class="step">
+                                <strong>Resultado:</strong> $f'(x) = 8x + 7$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-basic">Básico</div>
+                    <h5>Ejercicio 3: Funciones Trigonométricas</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = \sin(x) + \cos(x) - \tan(x)$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol3')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol3">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Aplicamos las derivadas trigonométricas
+                                <br>$\frac{d}{dx}[\sin(x)] = \cos(x)$
+                                <br>$\frac{d}{dx}[\cos(x)] = -\sin(x)$
+                                <br>$\frac{d}{dx}[\tan(x)] = \sec^2(x)$
+                            </div>
+                            <div class="step">
+                                <strong>Resultado:</strong> $f'(x) = \cos(x) - \sin(x) - \sec^2(x)$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-basic">Básico</div>
+                    <h5>Ejercicio 4: Funciones Exponenciales</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = e^x + \ln(x) + 2^x$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol4')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol4">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Aplicamos las derivadas exponenciales y logarítmicas
+                                <br>$\frac{d}{dx}[e^x] = e^x$
+                                <br>$\frac{d}{dx}[\ln(x)] = \frac{1}{x}$
+                                <br>$\frac{d}{dx}[2^x] = 2^x \ln(2)$
+                            </div>
+                            <div class="step">
+                                <strong>Resultado:</strong> $f'(x) = e^x + \frac{1}{x} + 2^x \ln(2)$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nivel Intermedio -->
+        <div class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-cogs"></i>
+                Nivel Intermedio - Reglas de Operaciones
+            </div>
+            
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-intermediate">Intermedio</div>
+                    <h5>Ejercicio 5: Regla del Producto</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = x^2 \cdot \sin(x)$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol5')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol5">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Identificamos u y v
+                                <br>$u = x^2$ → $u' = 2x$
+                                <br>$v = \sin(x)$ → $v' = \cos(x)$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos la regla del producto
+                                <br>$f'(x) = u'v + uv' = 2x \cdot \sin(x) + x^2 \cdot \cos(x)$
+                            </div>
+                            <div class="step">
+                                <strong>Resultado:</strong> $f'(x) = 2x\sin(x) + x^2\cos(x)$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-intermediate">Intermedio</div>
+                    <h5>Ejercicio 6: Regla del Cociente</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = \frac{x^2 + 1}{x - 1}$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol6')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol6">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Identificamos u y v
+                                <br>$u = x^2 + 1$ → $u' = 2x$
+                                <br>$v = x - 1$ → $v' = 1$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos la regla del cociente
+                                <br>$f'(x) = \frac{u'v - uv'}{v^2} = \frac{2x(x-1) - (x^2+1)(1)}{(x-1)^2}$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Simplificamos
+                                <br>$f'(x) = \frac{2x^2 - 2x - x^2 - 1}{(x-1)^2} = \frac{x^2 - 2x - 1}{(x-1)^2}$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-intermediate">Intermedio</div>
+                    <h5>Ejercicio 7: Regla de la Cadena</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = (x^2 + 3x + 1)^4$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol7')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol7">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Identificamos la función externa e interna
+                                <br>Función externa: $g(u) = u^4$ → $g'(u) = 4u^3$
+                                <br>Función interna: $u = x^2 + 3x + 1$ → $u' = 2x + 3$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos la regla de la cadena
+                                <br>$f'(x) = g'(u) \cdot u' = 4u^3 \cdot (2x + 3)$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Sustituimos u
+                                <br>$f'(x) = 4(x^2 + 3x + 1)^3(2x + 3)$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-intermediate">Intermedio</div>
+                    <h5>Ejercicio 8: Combinación de Reglas</h5>
+                    <p><strong>Encuentra la derivada de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = \frac{e^{2x}}{x^2 + 1}$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol8')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol8">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Aplicamos la regla del cociente
+                                <br>$u = e^{2x}$ → $u' = 2e^{2x}$ (regla de la cadena)
+                                <br>$v = x^2 + 1$ → $v' = 2x$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos la fórmula del cociente
+                                <br>$f'(x) = \frac{2e^{2x}(x^2 + 1) - e^{2x}(2x)}{(x^2 + 1)^2}$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Factorizamos
+                                <br>$f'(x) = \frac{e^{2x}[2(x^2 + 1) - 2x]}{(x^2 + 1)^2} = \frac{e^{2x}(2x^2 - 2x + 2)}{(x^2 + 1)^2}$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nivel Avanzado -->
+        <div class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-rocket"></i>
+                Nivel Avanzado - Derivación Implícita y Aplicaciones
+            </div>
+            
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-advanced">Avanzado</div>
+                    <h5>Ejercicio 9: Derivación Implícita</h5>
+                    <p><strong>Encuentra $\frac{dy}{dx}$ para:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$x^3 + y^3 = 6xy$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol9')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol9">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Derivamos ambos lados con respecto a x
+                                <br>$\frac{d}{dx}[x^3 + y^3] = \frac{d}{dx}[6xy]$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Aplicamos las reglas
+                                <br>$3x^2 + 3y^2\frac{dy}{dx} = 6y + 6x\frac{dy}{dx}$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Agrupamos términos con $\frac{dy}{dx}$
+                                <br>$3y^2\frac{dy}{dx} - 6x\frac{dy}{dx} = 6y - 3x^2$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 4:</strong> Factorizamos y despejamos
+                                <br>$\frac{dy}{dx}(3y^2 - 6x) = 6y - 3x^2$
+                                <br>$\frac{dy}{dx} = \frac{6y - 3x^2}{3y^2 - 6x} = \frac{2y - x^2}{y^2 - 2x}$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-advanced">Avanzado</div>
+                    <h5>Ejercicio 10: Derivadas de Orden Superior</h5>
+                    <p><strong>Encuentra $f''(x)$ para:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = x^4 - 3x^3 + 2x^2 - x + 1$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol10')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol10">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Calculamos la primera derivada
+                                <br>$f'(x) = 4x^3 - 9x^2 + 4x - 1$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Calculamos la segunda derivada
+                                <br>$f''(x) = 12x^2 - 18x + 4$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Podemos calcular derivadas superiores
+                                <br>$f'''(x) = 24x - 18$
+                                <br>$f^{(4)}(x) = 24$
+                                <br>$f^{(n)}(x) = 0$ para $n \geq 5$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-advanced">Avanzado</div>
+                    <h5>Ejercicio 11: Aplicación Física</h5>
+                    <p><strong>Un objeto se mueve según la ecuación:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$s(t) = t^3 - 6t^2 + 9t + 2$</div>
+                    </div>
+                    <p>Encuentra la velocidad y aceleración en t = 2 segundos.</p>
+                    <button class="solution-toggle" onclick="toggleSolution('sol11')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol11">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Calculamos la velocidad (primera derivada)
+                                <br>$v(t) = s'(t) = 3t^2 - 12t + 9$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Calculamos la aceleración (segunda derivada)
+                                <br>$a(t) = v'(t) = 6t - 12$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Evaluamos en t = 2
+                                <br>$v(2) = 3(2)^2 - 12(2) + 9 = 12 - 24 + 9 = -3$ m/s
+                                <br>$a(2) = 6(2) - 12 = 12 - 12 = 0$ m/s²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="difficulty-badge difficulty-advanced">Avanzado</div>
+                    <h5>Ejercicio 12: Optimización</h5>
+                    <p><strong>Encuentra los puntos críticos de:</strong></p>
+                    <div class="formula-box">
+                        <div class="formula">$f(x) = x^3 - 6x^2 + 9x + 1$</div>
+                    </div>
+                    <button class="solution-toggle" onclick="toggleSolution('sol12')">
+                        <i class="fas fa-eye"></i> Ver Solución
+                    </button>
+                    <div class="solution" id="sol12">
+                        <div class="step-by-step">
+                            <div class="step">
+                                <strong>Paso 1:</strong> Calculamos la primera derivada
+                                <br>$f'(x) = 3x^2 - 12x + 9$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 2:</strong> Igualamos a cero para encontrar puntos críticos
+                                <br>$3x^2 - 12x + 9 = 0$
+                                <br>$x^2 - 4x + 3 = 0$
+                                <br>$(x - 1)(x - 3) = 0$
+                                <br>$x = 1$ o $x = 3$
+                            </div>
+                            <div class="step">
+                                <strong>Paso 3:</strong> Usamos la segunda derivada para clasificar
+                                <br>$f''(x) = 6x - 12$
+                                <br>$f''(1) = -6 < 0$ → Máximo local en x = 1
+                                <br>$f''(3) = 6 > 0$ → Mínimo local en x = 3
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ejercicios Interactivos -->
+        <div class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-gamepad"></i>
+                Ejercicios Interactivos
+            </div>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    ¿Cuál es la derivada de $f(x) = x^3 \cdot e^x$?
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-answer="A">$3x^2 \cdot e^x$</div>
+                    <div class="quiz-option" data-answer="B">$x^3 \cdot e^x$</div>
+                    <div class="quiz-option" data-answer="C">$3x^2 \cdot e^x + x^3 \cdot e^x$</div>
+                    <div class="quiz-option" data-answer="D">$e^x(3x^2 + x^3)$</div>
+                </div>
+                <div class="feedback" id="feedback-interactive">
+                    ¡Correcto! Aplicando la regla del producto: $(x^3)'e^x + x^3(e^x)' = 3x^2e^x + x^3e^x = e^x(3x^2 + x^3)$
+                </div>
+                <button class="btn-interactive" onclick="checkInteractiveAnswer()">
+                    <i class="fas fa-check"></i> Verificar Respuesta
+                </button>
+            </div>
+        </div>
+
+        <!-- Simulador de Examen -->
+        <div class="topic-card">
+            <div class="topic-title">
+                <i class="fas fa-clipboard-check"></i>
+                Simulador de Examen
+            </div>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <strong>Pregunta 1 de 5:</strong> Encuentra la derivada de $f(x) = \frac{\sin(x)}{x^2}$
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-answer="A">$\frac{\cos(x) - 2x\sin(x)}{x^4}$</div>
+                    <div class="quiz-option" data-answer="B">$\frac{x\cos(x) - 2\sin(x)}{x^3}$</div>
+                    <div class="quiz-option" data-answer="C">$\frac{\cos(x)}{x^2} - \frac{\sin(x)}{x^3}$</div>
+                    <div class="quiz-option" data-answer="D">$\frac{x\cos(x) - 2\sin(x)}{x^4}$</div>
+                </div>
+                <div class="feedback" id="feedback-exam">
+                    ¡Correcto! Aplicando la regla del cociente: $\frac{d}{dx}[\frac{\sin(x)}{x^2}] = \frac{x^2\cos(x) - 2x\sin(x)}{x^4} = \frac{x\cos(x) - 2\sin(x)}{x^3}$
+                </div>
+                <button class="btn-interactive" onclick="checkExamAnswer()">
+                    <i class="fas fa-check"></i> Verificar Respuesta
+                </button>
+                <button class="btn btn-primary mt-3" onclick="nextQuestion()">
+                    <i class="fas fa-arrow-right"></i> Siguiente Pregunta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="derivadas.js"></script>
+    <script>
+        // Variables globales
+        let completedExercises = 0;
+        let currentScore = 0;
+        let achievements = [];
+        let timerInterval;
+        let startTime;
+        let isTimerRunning = false;
+
+        // Funciones de utilidad
+        function toggleSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            if (solution.classList.contains('show')) {
+                solution.classList.remove('show');
+                solution.style.display = 'none';
+            } else {
+                solution.classList.add('show');
+                solution.style.display = 'block';
+                completedExercises++;
+                updateProgress();
+                checkAchievements();
+            }
+        }
+
+        function updateProgress() {
+            const totalExercises = 12; // Número total de ejercicios
+            const progressPercentage = (completedExercises / totalExercises) * 100;
+            
+            document.getElementById('completed-count').textContent = completedExercises;
+            document.getElementById('total-count').textContent = totalExercises;
+            document.getElementById('progress-fill').style.width = progressPercentage + '%';
+            
+            // Aumentar puntuación
+            currentScore += 10;
+            document.getElementById('current-score').textContent = currentScore;
+        }
+
+        function checkAchievements() {
+            const newAchievements = [];
+            
+            if (completedExercises >= 3 && !achievements.includes('primeros_pasos')) {
+                newAchievements.push('primeros_pasos');
+            }
+            
+            if (completedExercises >= 6 && !achievements.includes('medio_camino')) {
+                newAchievements.push('medio_camino');
+            }
+            
+            if (completedExercises >= 9 && !achievements.includes('casi_terminado')) {
+                newAchievements.push('casi_terminado');
+            }
+            
+            if (completedExercises >= 12 && !achievements.includes('maestro_derivadas')) {
+                newAchievements.push('maestro_derivadas');
+            }
+            
+            if (currentScore >= 100 && !achievements.includes('centenario')) {
+                newAchievements.push('centenario');
+            }
+            
+            achievements = achievements.concat(newAchievements);
+            
+            if (newAchievements.length > 0) {
+                showAchievements(newAchievements);
+            }
+            
+            document.getElementById('achievements-count').textContent = achievements.length;
+        }
+
+        function showAchievements(newAchievements) {
+            const container = document.getElementById('achievements-container');
+            
+            newAchievements.forEach(achievement => {
+                const badge = document.createElement('div');
+                badge.className = 'achievement-badge';
+                
+                const achievementTexts = {
+                    'primeros_pasos': '🏆 Primeros Pasos',
+                    'medio_camino': '🥉 Medio Camino',
+                    'casi_terminado': '🥈 Casi Terminado',
+                    'maestro_derivadas': '🥇 Maestro de Derivadas',
+                    'centenario': '💯 Centenario'
+                };
+                
+                badge.textContent = achievementTexts[achievement];
+                container.appendChild(badge);
+            });
+        }
+
+        // Timer functions
+        function startTimer() {
+            if (!isTimerRunning) {
+                startTime = Date.now();
+                isTimerRunning = true;
+                document.getElementById('timer-toggle').textContent = 'Pausar Timer';
+                
+                timerInterval = setInterval(updateTimer, 1000);
+            } else {
+                pauseTimer();
+            }
+        }
+
+        function pauseTimer() {
+            isTimerRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('timer-toggle').textContent = 'Reanudar Timer';
+        }
+
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const hours = Math.floor(elapsed / 3600000);
+            const minutes = Math.floor((elapsed % 3600000) / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            
+            const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer-display').textContent = display;
+        }
+
+        // Event listeners
+        document.getElementById('timer-toggle').addEventListener('click', startTimer);
+
+        function checkInteractiveAnswer() {
+            const feedback = document.getElementById('feedback-interactive');
+            feedback.style.display = 'block';
+            feedback.classList.add('correct');
+            currentScore += 5;
+            updateProgress();
+        }
+
+        function checkExamAnswer() {
+            const feedback = document.getElementById('feedback-exam');
+            feedback.style.display = 'block';
+            feedback.classList.add('correct');
+            currentScore += 10;
+            updateProgress();
+        }
+
+        function nextQuestion() {
+            // Simular siguiente pregunta
+            alert('¡Pregunta completada! En una implementación completa, aquí cargarías la siguiente pregunta.');
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar tooltips de Bootstrap
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+</body>
+</html>

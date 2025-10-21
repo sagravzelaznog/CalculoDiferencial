@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Relaciones y Funciones - Cálculo Diferencial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .module-body {
+            padding: 2rem;
+        }
+
+        .concept-box {
+            background: var(--light-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .example-box {
+            background: #e8f5e8;
+            border: 1px solid var(--success-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+
+        .exercise-box {
+            background: #fff3cd;
+            border: 1px solid var(--warning-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid var(--info-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .interactive-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-module {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-module:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .definition {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid var(--info-color);
+        }
+
+        .theorem {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .step-by-step {
+            background: #fff8e1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .tabs-custom .nav-link {
+            border: none;
+            border-radius: 10px 10px 0 0;
+            margin-right: 5px;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .tabs-custom .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .tabs-custom .nav-link:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .function-input {
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        .result-display {
+            background: var(--light-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .module-body {
+                padding: 1rem;
+            }
+            
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-calculator"></i> Cálculo Diferencial
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-chart-line"></i> Módulo 1
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-chart-line"></i> Módulo 1: Relaciones y Funciones
+            </h1>
+            <p class="lead mb-4">
+                Comprende los conceptos fundamentales de relaciones y funciones, sus propiedades y representaciones gráficas
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="progress-section">
+                        <h5>Progreso del Módulo</h5>
+                        <div class="progress mb-3" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 0%" id="moduleProgress"></div>
+                        </div>
+                        <p class="mb-0">Completa las secciones para avanzar en tu aprendizaje</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navegación del Módulo -->
+        <div class="module-card">
+            <div class="module-header">
+                <h3><i class="fas fa-list"></i> Contenidos del Módulo</h3>
+            </div>
+            <div class="module-body">
+                <ul class="nav nav-pills flex-column flex-md-row justify-content-center" id="moduleTabs" role="tablist">
+                    <li class="nav-item mb-2 mb-md-0" role="presentation">
+                        <button class="nav-link active" id="conceptos-tab" data-bs-toggle="pill" data-bs-target="#conceptos" type="button" role="tab">
+                            <i class="fas fa-lightbulb"></i> Conceptos Básicos
+                        </button>
+                    </li>
+                    <li class="nav-item mb-2 mb-md-0" role="presentation">
+                        <button class="nav-link" id="propiedades-tab" data-bs-toggle="pill" data-bs-target="#propiedades" type="button" role="tab">
+                            <i class="fas fa-cogs"></i> Propiedades
+                        </button>
+                    </li>
+                    <li class="nav-item mb-2 mb-md-0" role="presentation">
+                        <button class="nav-link" id="elementales-tab" data-bs-toggle="pill" data-bs-target="#elementales" type="button" role="tab">
+                            <i class="fas fa-function"></i> Funciones Elementales
+                        </button>
+                    </li>
+                    <li class="nav-item mb-2 mb-md-0" role="presentation">
+                        <button class="nav-link" id="transformaciones-tab" data-bs-toggle="pill" data-bs-target="#transformaciones" type="button" role="tab">
+                            <i class="fas fa-magic"></i> Transformaciones
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="actividades-tab" data-bs-toggle="pill" data-bs-target="#actividades" type="button" role="tab">
+                            <i class="fas fa-play"></i> Actividades
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenido de las Pestañas -->
+        <div class="tab-content" id="moduleTabsContent">
+            
+            <!-- SECCIÓN 1: CONCEPTOS BÁSICOS -->
+            <div class="tab-pane fade show active" id="conceptos" role="tabpanel">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3><i class="fas fa-lightbulb"></i> 1.1 Conceptos Básicos</h3>
+                        <p class="mb-0">Definición de relación y función, dominio y rango, notación funcional</p>
+                    </div>
+                    <div class="module-body">
+                        
+                        <!-- Definición de Relación -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Definición de Relación</h4>
+                            <p>Una <strong>relación</strong> es un conjunto de pares ordenados $(x, y)$ donde $x$ pertenece a un conjunto $A$ e $y$ pertenece a un conjunto $B$.</p>
+                            <p>Se denota como $R: A \rightarrow B$</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Si $A = \{1, 2, 3\}$ y $B = \{a, b, c\}$, entonces:</p>
+                                <p>$R = \{(1, a), (2, b), (3, c)\}$ es una relación de $A$ hacia $B$</p>
+                            </div>
+                        </div>
+
+                        <!-- Definición de Función -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Definición de Función</h4>
+                            <p>Una <strong>función</strong> es una relación especial donde cada elemento del dominio se relaciona con exactamente un elemento del codominio.</p>
+                            <p>Si $f: A \rightarrow B$ es una función, entonces para cada $x \in A$ existe un único $y \in B$ tal que $(x, y) \in f$</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>$f(x) = x^2$ es una función porque para cada valor de $x$ hay exactamente un valor de $f(x)$</p>
+                            </div>
+                        </div>
+
+                        <!-- Dominio y Rango -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Dominio y Rango</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Dominio (Dom f)</h5>
+                                    <p>Es el conjunto de todos los valores de entrada (valores de $x$) para los cuales la función está definida.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Rango (Ran f)</h5>
+                                    <p>Es el conjunto de todos los valores de salida (valores de $y$ o $f(x)$) que produce la función.</p>
+                                </div>
+                            </div>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Para $f(x) = \sqrt{x-2}$:</p>
+                                <ul>
+                                    <li><strong>Dominio:</strong> $Dom(f) = [2, +\infty)$ porque $x-2 \geq 0$</li>
+                                    <li><strong>Rango:</strong> $Ran(f) = [0, +\infty)$ porque $\sqrt{x-2} \geq 0$</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Notación Funcional -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Notación Funcional</h4>
+                            <p>Existen varias formas de representar una función:</p>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Notación de Función</h5>
+                                    <p>$f(x) = x^2 + 1$</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Notación de Flecha</h5>
+                                    <p>$f: x \mapsto x^2 + 1$</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Notación de Conjunto</h5>
+                                    <p>$f = \{(x, x^2+1) : x \in \mathbb{R}\}$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tipos de Funciones -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Tipos de Funciones</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Función Constante</h5>
+                                    <p>$f(x) = c$ donde $c$ es una constante</p>
+                                    <p>Ejemplo: $f(x) = 5$</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Función Lineal</h5>
+                                    <p>$f(x) = mx + b$ donde $m \neq 0$</p>
+                                    <p>Ejemplo: $f(x) = 2x + 3$</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Función Cuadrática</h5>
+                                    <p>$f(x) = ax^2 + bx + c$ donde $a \neq 0$</p>
+                                    <p>Ejemplo: $f(x) = x^2 - 4x + 3$</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Función Polinomial</h5>
+                                    <p>$f(x) = a_n x^n + a_{n-1} x^{n-1} + ... + a_1 x + a_0$</p>
+                                    <p>Ejemplo: $f(x) = x^3 - 2x^2 + x - 1$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad Interactiva -->
+                        <div class="interactive-container">
+                            <h4><i class="fas fa-play-circle"></i> Actividad Interactiva: Identificar Dominio y Rango</h4>
+                            <p>Practica identificando el dominio y rango de diferentes funciones:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="functionInput" class="form-label">Ingresa una función:</label>
+                                    <input type="text" class="form-control function-input" id="functionInput" placeholder="Ej: x^2 + 1" value="x^2 + 1">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Dominio sugerido:</label>
+                                    <input type="text" class="form-control" id="domainInput" placeholder="Ej: (-∞, +∞)" value="(-∞, +∞)">
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <button class="btn btn-module w-100" onclick="analyzeFunction()">
+                                        <i class="fas fa-search"></i> Analizar Función
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-outline-secondary w-100" onclick="clearAnalysis()">
+                                        <i class="fas fa-eraser"></i> Limpiar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="analysisResult" class="result-display mt-3" style="display: none;">
+                                <h5>Análisis de la Función:</h5>
+                                <div id="analysisContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Interactivo -->
+                        <div class="interactive-container">
+                            <h4><i class="fas fa-chart-line"></i> Visualización Gráfica</h4>
+                            <p>Observa cómo se ve la función en el plano cartesiano:</p>
+                            <canvas id="functionChart" class="chart-container"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: PROPIEDADES DE FUNCIONES -->
+            <div class="tab-pane fade" id="propiedades" role="tabpanel">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3><i class="fas fa-cogs"></i> 1.2 Propiedades de Funciones</h3>
+                        <p class="mb-0">Funciones inyectivas, sobreyectivas, biyectivas, función inversa y composición</p>
+                    </div>
+                    <div class="module-body">
+                        
+                        <!-- Funciones Inyectivas -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Función Inyectiva (1-1)</h4>
+                            <p>Una función $f: A \rightarrow B$ es <strong>inyectiva</strong> si elementos diferentes del dominio tienen imágenes diferentes.</p>
+                            <p>Formalmente: Si $f(x_1) = f(x_2)$, entonces $x_1 = x_2$</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>$f(x) = 2x + 1$ es inyectiva porque si $2x_1 + 1 = 2x_2 + 1$, entonces $x_1 = x_2$</p>
+                                <p>$f(x) = x^2$ NO es inyectiva porque $f(-2) = f(2) = 4$ pero $-2 \neq 2$</p>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Sobreyectivas -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Función Sobreyectiva (Sobre)</h4>
+                            <p>Una función $f: A \rightarrow B$ es <strong>sobreyectiva</strong> si todo elemento del codominio es imagen de al menos un elemento del dominio.</p>
+                            <p>Formalmente: Para todo $y \in B$, existe $x \in A$ tal que $f(x) = y$</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>$f(x) = x^3$ es sobreyectiva sobre $\mathbb{R}$ porque para cualquier $y \in \mathbb{R}$, existe $x = \sqrt[3]{y}$ tal que $f(x) = y$</p>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Biyectivas -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Función Biyectiva</h4>
+                            <p>Una función es <strong>biyectiva</strong> si es tanto inyectiva como sobreyectiva.</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>$f(x) = x + 1$ es biyectiva sobre $\mathbb{R}$ porque es inyectiva y sobreyectiva</p>
+                            </div>
+                        </div>
+
+                        <!-- Función Inversa -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Función Inversa</h4>
+                            <p>Si $f: A \rightarrow B$ es biyectiva, entonces existe una función $f^{-1}: B \rightarrow A$ tal que:</p>
+                            <ul>
+                                <li>$f^{-1}(f(x)) = x$ para todo $x \in A$</li>
+                                <li>$f(f^{-1}(y)) = y$ para todo $y \in B$</li>
+                            </ul>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Si $f(x) = 2x + 3$, entonces $f^{-1}(x) = \frac{x-3}{2}$</p>
+                                <p>Verificación: $f^{-1}(f(x)) = f^{-1}(2x+3) = \frac{(2x+3)-3}{2} = x$</p>
+                            </div>
+                        </div>
+
+                        <!-- Composición de Funciones -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Composición de Funciones</h4>
+                            <p>Si $f: A \rightarrow B$ y $g: B \rightarrow C$, entonces la composición $(g \circ f): A \rightarrow C$ se define como:</p>
+                            <p>$(g \circ f)(x) = g(f(x))$</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Si $f(x) = x^2$ y $g(x) = 2x + 1$, entonces:</p>
+                                <p>$(g \circ f)(x) = g(f(x)) = g(x^2) = 2x^2 + 1$</p>
+                                <p>$(f \circ g)(x) = f(g(x)) = f(2x + 1) = (2x + 1)^2$</p>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Pares e Impares -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Funciones Pares e Impares</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Función Par</h5>
+                                    <p>$f(-x) = f(x)$ para todo $x$ en el dominio</p>
+                                    <p>Ejemplo: $f(x) = x^2$ porque $(-x)^2 = x^2$</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Función Impar</h5>
+                                    <p>$f(-x) = -f(x)$ para todo $x$ en el dominio</p>
+                                    <p>Ejemplo: $f(x) = x^3$ porque $(-x)^3 = -x^3$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad Interactiva -->
+                        <div class="interactive-container">
+                            <h4><i class="fas fa-play-circle"></i> Actividad: Clasificar Funciones</h4>
+                            <p>Analiza las siguientes funciones y determina sus propiedades:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Función 1:</label>
+                                        <input type="text" class="form-control" id="func1" value="x^2" readonly>
+                                        <div class="mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="func1_injective">
+                                                <label class="form-check-label" for="func1_injective">Inyectiva</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="func1_surjective">
+                                                <label class="form-check-label" for="func1_surjective">Sobreyectiva</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="func1_bijective">
+                                                <label class="form-check-label" for="func1_bijective">Biyectiva</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Función 2:</label>
+                                        <input type="text" class="form-control" id="func2" value="x^3" readonly>
+                                        <div class="mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="func2_injective">
+                                                <label class="form-check-label" for="func2_injective">Inyectiva</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="func2_surjective">
+                                                <label class="form-check-label" for="func2_surjective">Sobreyectiva</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="func2_bijective">
+                                                <label class="form-check-label" for="func2_bijective">Biyectiva</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-module" onclick="checkAnswers()">
+                                <i class="fas fa-check"></i> Verificar Respuestas
+                            </button>
+                            
+                            <div id="answerResult" class="result-display mt-3" style="display: none;">
+                                <h5>Resultado:</h5>
+                                <div id="answerContent"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: FUNCIONES ELEMENTALES -->
+            <div class="tab-pane fade" id="elementales" role="tabpanel">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3><i class="fas fa-function"></i> 1.3 Funciones Elementales</h3>
+                        <p class="mb-0">Funciones polinomiales, racionales, exponenciales, logarítmicas y trigonométricas</p>
+                    </div>
+                    <div class="module-body">
+                        
+                        <!-- Funciones Polinomiales -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Funciones Polinomiales</h4>
+                            <p>Una función polinomial de grado $n$ tiene la forma:</p>
+                            <p>$f(x) = a_n x^n + a_{n-1} x^{n-1} + ... + a_1 x + a_0$</p>
+                            <p>donde $a_n \neq 0$ y $n$ es un entero no negativo.</p>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Grado 0: Constante</h5>
+                                    <p>$f(x) = c$</p>
+                                    <p>Ejemplo: $f(x) = 5$</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Grado 1: Lineal</h5>
+                                    <p>$f(x) = mx + b$</p>
+                                    <p>Ejemplo: $f(x) = 2x + 3$</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Grado 2: Cuadrática</h5>
+                                    <p>$f(x) = ax^2 + bx + c$</p>
+                                    <p>Ejemplo: $f(x) = x^2 - 4x + 3$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Racionales -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Funciones Racionales</h4>
+                            <p>Una función racional es el cociente de dos polinomios:</p>
+                            <p>$f(x) = \frac{P(x)}{Q(x)}$ donde $Q(x) \neq 0$</p>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>$f(x) = \frac{x^2 - 1}{x - 1} = \frac{(x+1)(x-1)}{x-1} = x + 1$ para $x \neq 1$</p>
+                                <p>Dominio: $\mathbb{R} - \{1\}$</p>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Exponenciales -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Funciones Exponenciales</h4>
+                            <p>Una función exponencial tiene la forma:</p>
+                            <p>$f(x) = a^x$ donde $a > 0$ y $a \neq 1$</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Propiedades:</h5>
+                                    <ul>
+                                        <li>Dominio: $\mathbb{R}$</li>
+                                        <li>Rango: $(0, +\infty)$</li>
+                                        <li>$a^0 = 1$</li>
+                                        <li>$a^{x+y} = a^x \cdot a^y$</li>
+                                        <li>$(a^x)^y = a^{xy}$</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Casos Especiales:</h5>
+                                    <p><strong>Base e:</strong> $f(x) = e^x$</p>
+                                    <p><strong>Base 2:</strong> $f(x) = 2^x$</p>
+                                    <p><strong>Base 10:</strong> $f(x) = 10^x$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Logarítmicas -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Funciones Logarítmicas</h4>
+                            <p>Una función logarítmica tiene la forma:</p>
+                            <p>$f(x) = \log_a(x)$ donde $a > 0$ y $a \neq 1$</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Propiedades:</h5>
+                                    <ul>
+                                        <li>Dominio: $(0, +\infty)$</li>
+                                        <li>Rango: $\mathbb{R}$</li>
+                                        <li>$\log_a(1) = 0$</li>
+                                        <li>$\log_a(a) = 1$</li>
+                                        <li>$\log_a(xy) = \log_a(x) + \log_a(y)$</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Casos Especiales:</h5>
+                                    <p><strong>Logaritmo natural:</strong> $f(x) = \ln(x) = \log_e(x)$</p>
+                                    <p><strong>Logaritmo común:</strong> $f(x) = \log(x) = \log_{10}(x)$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Funciones Trigonométricas -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Funciones Trigonométricas</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Funciones Básicas:</h5>
+                                    <ul>
+                                        <li>$f(x) = \sin(x)$</li>
+                                        <li>$g(x) = \cos(x)$</li>
+                                        <li>$h(x) = \tan(x)$</li>
+                                        <li>$i(x) = \cot(x)$</li>
+                                        <li>$j(x) = \sec(x)$</li>
+                                        <li>$k(x) = \csc(x)$</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Propiedades del Seno y Coseno:</h5>
+                                    <ul>
+                                        <li>Dominio: $\mathbb{R}$</li>
+                                        <li>Rango: $[-1, 1]$</li>
+                                        <li>Período: $2\pi$</li>
+                                        <li>$\sin^2(x) + \cos^2(x) = 1$</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad Interactiva -->
+                        <div class="interactive-container">
+                            <h4><i class="fas fa-play-circle"></i> Explorador de Funciones Elementales</h4>
+                            <p>Explora diferentes tipos de funciones elementales:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="form-label">Tipo de Función:</label>
+                                    <select class="form-select" id="functionType" onchange="updateFunctionExample()">
+                                        <option value="polynomial">Polinomial</option>
+                                        <option value="rational">Racional</option>
+                                        <option value="exponential">Exponencial</option>
+                                        <option value="logarithmic">Logarítmica</option>
+                                        <option value="trigonometric">Trigonométrica</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Función:</label>
+                                    <input type="text" class="form-control" id="exampleFunction" value="x^2 + 2x + 1">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Acción:</label>
+                                    <button class="btn btn-module w-100" onclick="plotFunction()">
+                                        <i class="fas fa-chart-line"></i> Graficar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container mt-3">
+                                <canvas id="elementaryChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 4: TRANSFORMACIONES DE FUNCIONES -->
+            <div class="tab-pane fade" id="transformaciones" role="tabpanel">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3><i class="fas fa-magic"></i> 1.4 Transformaciones de Funciones</h3>
+                        <p class="mb-0">Traslaciones, reflexiones, estiramientos y compresiones</p>
+                    </div>
+                    <div class="module-body">
+                        
+                        <!-- Traslaciones -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Traslaciones</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Traslación Horizontal</h5>
+                                    <p>$y = f(x - h)$ donde $h$ es el desplazamiento horizontal:</p>
+                                    <ul>
+                                        <li>Si $h > 0$: desplaza $h$ unidades hacia la derecha</li>
+                                        <li>Si $h < 0$: desplaza $|h|$ unidades hacia la izquierda</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Traslación Vertical</h5>
+                                    <p>$y = f(x) + k$ donde $k$ es el desplazamiento vertical:</p>
+                                    <ul>
+                                        <li>Si $k > 0$: desplaza $k$ unidades hacia arriba</li>
+                                        <li>Si $k < 0$: desplaza $|k|$ unidades hacia abajo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Si $f(x) = x^2$, entonces:</p>
+                                <ul>
+                                    <li>$f(x-2) = (x-2)^2$ se desplaza 2 unidades a la derecha</li>
+                                    <li>$f(x)+3 = x^2 + 3$ se desplaza 3 unidades hacia arriba</li>
+                                    <li>$f(x-1)+2 = (x-1)^2 + 2$ se desplaza 1 unidad a la derecha y 2 hacia arriba</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Reflexiones -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Reflexiones</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Reflexión sobre el eje X</h5>
+                                    <p>$y = -f(x)$</p>
+                                    <p>Refleja la gráfica sobre el eje horizontal</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Reflexión sobre el eje Y</h5>
+                                    <p>$y = f(-x)$</p>
+                                    <p>Refleja la gráfica sobre el eje vertical</p>
+                                </div>
+                            </div>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Si $f(x) = x^2$, entonces:</p>
+                                <ul>
+                                    <li>$-f(x) = -x^2$ es una parábola invertida</li>
+                                    <li>$f(-x) = (-x)^2 = x^2$ (no cambia porque es par)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Estiramientos y Compresiones -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Estiramientos y Compresiones</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Estiramiento/Compresión Vertical</h5>
+                                    <p>$y = a \cdot f(x)$ donde $a > 0$:</p>
+                                    <ul>
+                                        <li>Si $a > 1$: estiramiento vertical</li>
+                                        <li>Si $0 < a < 1$: compresión vertical</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Estiramiento/Compresión Horizontal</h5>
+                                    <p>$y = f(bx)$ donde $b > 0$:</p>
+                                    <ul>
+                                        <li>Si $b > 1$: compresión horizontal</li>
+                                        <li>Si $0 < b < 1$: estiramiento horizontal</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="example-box">
+                                <h5>Ejemplo:</h5>
+                                <p>Si $f(x) = \sin(x)$, entonces:</p>
+                                <ul>
+                                    <li>$2\sin(x)$: estiramiento vertical por factor 2</li>
+                                    <li>$\sin(2x)$: compresión horizontal por factor 2</li>
+                                    <li>$2\sin(2x)$: combinación de ambos</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Transformación General -->
+                        <div class="definition">
+                            <h4><i class="fas fa-book"></i> Transformación General</h4>
+                            <p>Una transformación general tiene la forma:</p>
+                            <p>$y = a \cdot f(b(x - h)) + k$</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li><strong>$a$:</strong> estiramiento/compresión vertical</li>
+                                        <li><strong>$b$:</strong> estiramiento/compresión horizontal</li>
+                                        <li><strong>$h$:</strong> desplazamiento horizontal</li>
+                                        <li><strong>$k$:</strong> desplazamiento vertical</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Orden de Transformaciones:</h5>
+                                    <ol>
+                                        <li>Traslación horizontal ($h$)</li>
+                                        <li>Compresión/estiramiento horizontal ($b$)</li>
+                                        <li>Reflexión horizontal (si $b < 0$)</li>
+                                        <li>Compresión/estiramiento vertical ($a$)</li>
+                                        <li>Reflexión vertical (si $a < 0$)</li>
+                                        <li>Traslación vertical ($k$)</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad Interactiva -->
+                        <div class="interactive-container">
+                            <h4><i class="fas fa-play-circle"></i> Laboratorio de Transformaciones</h4>
+                            <p>Aplica diferentes transformaciones a la función base y observa los cambios:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label">Función Base:</label>
+                                    <select class="form-select" id="baseFunction">
+                                        <option value="x^2">x²</option>
+                                        <option value="x^3">x³</option>
+                                        <option value="sin(x)">sin(x)</option>
+                                        <option value="cos(x)">cos(x)</option>
+                                        <option value="exp(x)">eˣ</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">a (vertical):</label>
+                                    <input type="number" class="form-control" id="paramA" value="1" step="0.1">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">b (horizontal):</label>
+                                    <input type="number" class="form-control" id="paramB" value="1" step="0.1">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">h (desplazamiento):</label>
+                                    <input type="number" class="form-control" id="paramH" value="0" step="0.1">
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">k (desplazamiento):</label>
+                                    <input type="number" class="form-control" id="paramK" value="0" step="0.1">
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <button class="btn btn-module w-100" onclick="applyTransformation()">
+                                        <i class="fas fa-magic"></i> Aplicar Transformación
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-outline-secondary w-100" onclick="resetTransformation()">
+                                        <i class="fas fa-undo"></i> Resetear
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container mt-3">
+                                <canvas id="transformationChart"></canvas>
+                            </div>
+                            
+                            <div class="result-display mt-3">
+                                <h5>Función Transformada:</h5>
+                                <div id="transformedFunction"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 5: ACTIVIDADES -->
+            <div class="tab-pane fade" id="actividades" role="tabpanel">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3><i class="fas fa-play"></i> 1.5 Actividades de Aprendizaje</h3>
+                        <p class="mb-0">Ejercicios interactivos y problemas para reforzar el aprendizaje</p>
+                    </div>
+                    <div class="module-body">
+                        
+                        <!-- Actividad 1 -->
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-pencil-alt"></i> Actividad 1: Identificar Dominio y Rango</h4>
+                            <p>Para cada función, determina el dominio y rango:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>a) $f(x) = \sqrt{x + 3}$</h5>
+                                    <div class="mb-2">
+                                        <label class="form-label">Dominio:</label>
+                                        <input type="text" class="form-control" id="domain1" placeholder="Ej: [0, +∞)">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Rango:</label>
+                                        <input type="text" class="form-control" id="range1" placeholder="Ej: [0, +∞)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>b) $g(x) = \frac{1}{x-2}$</h5>
+                                    <div class="mb-2">
+                                        <label class="form-label">Dominio:</label>
+                                        <input type="text" class="form-control" id="domain2" placeholder="Ej: (-∞, 2) ∪ (2, +∞)">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">Rango:</label>
+                                        <input type="text" class="form-control" id="range2" placeholder="Ej: (-∞, 0) ∪ (0, +∞)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-module mt-3" onclick="checkDomainRange()">
+                                <i class="fas fa-check"></i> Verificar Respuestas
+                            </button>
+                            
+                            <div id="domainRangeResult" class="result-display mt-3" style="display: none;">
+                                <div id="domainRangeContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad 2 -->
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-pencil-alt"></i> Actividad 2: Composición de Funciones</h4>
+                            <p>Dadas las funciones $f(x) = x^2 + 1$ y $g(x) = 2x - 3$, encuentra:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>a) $(f \circ g)(x)$</h5>
+                                    <input type="text" class="form-control" id="composition1" placeholder="Escribe tu respuesta">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>b) $(g \circ f)(x)$</h5>
+                                    <input type="text" class="form-control" id="composition2" placeholder="Escribe tu respuesta">
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-module mt-3" onclick="checkComposition()">
+                                <i class="fas fa-check"></i> Verificar Respuestas
+                            </button>
+                            
+                            <div id="compositionResult" class="result-display mt-3" style="display: none;">
+                                <div id="compositionContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad 3 -->
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-pencil-alt"></i> Actividad 3: Función Inversa</h4>
+                            <p>Encuentra la función inversa de $f(x) = 3x - 2$:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">$f^{-1}(x) = $</label>
+                                    <input type="text" class="form-control" id="inverseFunction" placeholder="Escribe tu respuesta">
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-module mt-4" onclick="checkInverse()">
+                                        <i class="fas fa-check"></i> Verificar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="inverseResult" class="result-display mt-3" style="display: none;">
+                                <div id="inverseContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Actividad 4 -->
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-pencil-alt"></i> Actividad 4: Transformaciones</h4>
+                            <p>Describe las transformaciones aplicadas a $f(x) = x^2$ para obtener $g(x) = 2(x-1)^2 + 3$:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="transform1">
+                                        <label class="form-check-label">Desplazamiento 1 unidad a la derecha</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="transform2">
+                                        <label class="form-check-label">Desplazamiento 3 unidades hacia arriba</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="transform3">
+                                        <label class="form-check-label">Estiramiento vertical por factor 2</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="transform4">
+                                        <label class="form-check-label">Reflexión sobre el eje x</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-module mt-3" onclick="checkTransformations()">
+                                <i class="fas fa-check"></i> Verificar Respuestas
+                            </button>
+                            
+                            <div id="transformationResult" class="result-display mt-3" style="display: none;">
+                                <div id="transformationContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Evaluación Final -->
+                        <div class="interactive-container">
+                            <h4><i class="fas fa-trophy"></i> Evaluación Final del Módulo</h4>
+                            <p>Completa esta evaluación para verificar tu comprensión del módulo:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="progress-section">
+                                        <h5>Progreso General</h5>
+                                        <div class="progress mb-2" style="height: 20px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="finalProgress">
+                                                <span id="progressText">0%</span>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0">Completa todas las actividades para obtener el 100%</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-module w-100 mt-3" onclick="calculateFinalScore()">
+                                        <i class="fas fa-calculator"></i> Calcular Puntuación Final
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-graduation-cap"></i> 
+                Módulo 1: Relaciones y Funciones - Cálculo Diferencial
+            </p>
+            <p class="mb-0">
+                <small>Desarrollado con fines educativos</small>
+            </p>
+            <hr class="my-2" style="border-color: rgba(255,255,255,0.3);">
+            <p class="mb-0">
+                <small>&copy; JMGV-PTEL-2025. TODOS LOS DERECHOS RESERVADOS.</small>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/function-plot@1.22.8/dist/function-plot.js"></script>
+    
+    <script>
+        // Variables globales
+        let currentChart = null;
+        let completedSections = new Set();
+
+        // Función para actualizar el progreso
+        function updateProgress() {
+            const progress = (completedSections.size / 5) * 100;
+            document.getElementById('moduleProgress').style.width = progress + '%';
+        }
+
+        // Función para marcar sección como completada
+        function markSectionComplete(sectionId) {
+            completedSections.add(sectionId);
+            updateProgress();
+        }
+
+        // Análisis de función
+        function analyzeFunction() {
+            const functionInput = document.getElementById('functionInput').value;
+            const domainInput = document.getElementById('domainInput').value;
+            const resultDiv = document.getElementById('analysisResult');
+            const contentDiv = document.getElementById('analysisContent');
+            
+            if (!functionInput) {
+                alert('Por favor ingresa una función');
+                return;
+            }
+            
+            let analysis = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Función analizada:</h6>
+                        <p>$$f(x) = ${functionInput}$</p>
+                        <h6>Dominio sugerido:</h6>
+                        <p>$$Dom(f) = ${domainInput}$</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Análisis:</h6>
+                        <ul>
+                            <li>Tipo: Función polinomial cuadrática</li>
+                            <li>Dominio: Todos los números reales</li>
+                            <li>Rango: $[1, +\\infty)$</li>
+                            <li>Simetría: Par (respecto al eje y)</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            contentDiv.innerHTML = analysis;
+            resultDiv.style.display = 'block';
+            markSectionComplete('conceptos');
+            
+            // Actualizar MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise([contentDiv]);
+            }
+        }
+
+        function clearAnalysis() {
+            document.getElementById('analysisResult').style.display = 'none';
+            document.getElementById('functionInput').value = '';
+            document.getElementById('domainInput').value = '';
+        }
+
+        // Verificar respuestas de clasificación de funciones
+        function checkAnswers() {
+            const func1_injective = document.getElementById('func1_injective').checked;
+            const func1_surjective = document.getElementById('func1_surjective').checked;
+            const func1_bijective = document.getElementById('func1_bijective').checked;
+            
+            const func2_injective = document.getElementById('func2_injective').checked;
+            const func2_surjective = document.getElementById('func2_surjective').checked;
+            const func2_bijective = document.getElementById('func2_bijective').checked;
+            
+            let score = 0;
+            let feedback = '<h6>Respuestas:</h6>';
+            
+            // Función 1: f(x) = x^2
+            if (!func1_injective && !func1_surjective && !func1_bijective) {
+                feedback += '<p>✅ Función 1 (x²): Correcto - No es inyectiva, sobreyectiva ni biyectiva</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Función 1 (x²): Incorrecto - x² no es inyectiva porque f(-2) = f(2)</p>';
+            }
+            
+            // Función 2: f(x) = x^3
+            if (func2_injective && func2_surjective && func2_bijective) {
+                feedback += '<p>✅ Función 2 (x³): Correcto - Es inyectiva, sobreyectiva y biyectiva</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Función 2 (x³): Incorrecto - x³ es biyectiva sobre ℝ</p>';
+            }
+            
+            document.getElementById('answerContent').innerHTML = feedback + `<p><strong>Puntuación: ${score}/2</strong></p>`;
+            document.getElementById('answerResult').style.display = 'block';
+            
+            if (score === 2) {
+                markSectionComplete('propiedades');
+            }
+        }
+
+        // Actualizar ejemplo de función según el tipo
+        function updateFunctionExample() {
+            const type = document.getElementById('functionType').value;
+            const examples = {
+                polynomial: 'x^2 + 2x + 1',
+                rational: '(x^2 - 1)/(x - 1)',
+                exponential: '2^x',
+                logarithmic: 'log(x)',
+                trigonometric: 'sin(x)'
+            };
+            document.getElementById('exampleFunction').value = examples[type];
+        }
+
+        // Graficar función
+        function plotFunction() {
+            const functionExpr = document.getElementById('exampleFunction').value;
+            const ctx = document.getElementById('elementaryChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            try {
+                // Crear datos para la gráfica
+                const data = [];
+                for (let x = -10; x <= 10; x += 0.1) {
+                    let y;
+                    try {
+                        // Evaluación simple para funciones básicas
+                        if (functionExpr.includes('x^2')) {
+                            y = Math.pow(x, 2) + 2*x + 1;
+                        } else if (functionExpr.includes('sin')) {
+                            y = Math.sin(x);
+                        } else if (functionExpr.includes('cos')) {
+                            y = Math.cos(x);
+                        } else if (functionExpr.includes('2^x')) {
+                            y = Math.pow(2, x);
+                        } else if (functionExpr.includes('log')) {
+                            y = x > 0 ? Math.log(x) : null;
+                        } else {
+                            y = Math.pow(x, 2) + 2*x + 1; // default
+                        }
+                        
+                        if (y !== null && !isNaN(y) && isFinite(y)) {
+                            data.push({x: x, y: y});
+                        }
+                    } catch (e) {
+                        // Ignorar errores de evaluación
+                    }
+                }
+                
+                currentChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: `f(x) = ${functionExpr}`,
+                            data: data,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'center',
+                                title: {
+                                    display: true,
+                                    text: 'x'
+                                }
+                            },
+                            y: {
+                                type: 'linear',
+                                position: 'center',
+                                title: {
+                                    display: true,
+                                    text: 'f(x)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+                
+                markSectionComplete('elementales');
+            } catch (error) {
+                alert('Error al graficar la función. Verifica que la expresión sea válida.');
+            }
+        }
+
+        // Aplicar transformación
+        function applyTransformation() {
+            const baseFunc = document.getElementById('baseFunction').value;
+            const a = parseFloat(document.getElementById('paramA').value);
+            const b = parseFloat(document.getElementById('paramB').value);
+            const h = parseFloat(document.getElementById('paramH').value);
+            const k = parseFloat(document.getElementById('paramK').value);
+            
+            // Generar la función transformada
+            let transformed = `${a} * ${baseFunc.replace('x', `(${b} * (x - ${h}))`)} + ${k}`;
+            
+            document.getElementById('transformedFunction').innerHTML = `
+                <p><strong>f(x) = ${transformed}</strong></p>
+                <p>Donde:</p>
+                <ul>
+                    <li>a = ${a} (factor de estiramiento/compresión vertical)</li>
+                    <li>b = ${b} (factor de estiramiento/compresión horizontal)</li>
+                    <li>h = ${h} (desplazamiento horizontal)</li>
+                    <li>k = ${k} (desplazamiento vertical)</li>
+                </ul>
+            `;
+            
+            markSectionComplete('transformaciones');
+        }
+
+        function resetTransformation() {
+            document.getElementById('paramA').value = 1;
+            document.getElementById('paramB').value = 1;
+            document.getElementById('paramH').value = 0;
+            document.getElementById('paramK').value = 0;
+            document.getElementById('transformedFunction').innerHTML = '';
+        }
+
+        // Verificar dominio y rango
+        function checkDomainRange() {
+            const domain1 = document.getElementById('domain1').value.toLowerCase();
+            const range1 = document.getElementById('range1').value.toLowerCase();
+            const domain2 = document.getElementById('domain2').value.toLowerCase();
+            const range2 = document.getElementById('range2').value.toLowerCase();
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            // Verificar función a)
+            if (domain1.includes('[-3,') || domain1.includes('[3,') || domain1.includes('(-3,')) {
+                feedback += '<p>✅ a) Dominio correcto: [-3, +∞)</p>';
+                score += 0.5;
+            } else {
+                feedback += '<p>❌ a) Dominio incorrecto. Correcto: [-3, +∞)</p>';
+            }
+            
+            if (range1.includes('[0,') || range1.includes('(0,')) {
+                feedback += '<p>✅ a) Rango correcto: [0, +∞)</p>';
+                score += 0.5;
+            } else {
+                feedback += '<p>❌ a) Rango incorrecto. Correcto: [0, +∞)</p>';
+            }
+            
+            // Verificar función b)
+            if (domain2.includes('(-∞, 2)') || domain2.includes('(-inf, 2)')) {
+                feedback += '<p>✅ b) Dominio correcto: (-∞, 2) ∪ (2, +∞)</p>';
+                score += 0.5;
+            } else {
+                feedback += '<p>❌ b) Dominio incorrecto. Correcto: (-∞, 2) ∪ (2, +∞)</p>';
+            }
+            
+            if (range2.includes('(-∞, 0)') || range2.includes('(-inf, 0)')) {
+                feedback += '<p>✅ b) Rango correcto: (-∞, 0) ∪ (0, +∞)</p>';
+                score += 0.5;
+            } else {
+                feedback += '<p>❌ b) Rango incorrecto. Correcto: (-∞, 0) ∪ (0, +∞)</p>';
+            }
+            
+            document.getElementById('domainRangeContent').innerHTML = feedback + `<p><strong>Puntuación: ${score}/2</strong></p>`;
+            document.getElementById('domainRangeResult').style.display = 'block';
+            
+            if (score >= 1.5) {
+                markSectionComplete('actividades');
+            }
+        }
+
+        // Verificar composición
+        function checkComposition() {
+            const comp1 = document.getElementById('composition1').value.toLowerCase();
+            const comp2 = document.getElementById('composition2').value.toLowerCase();
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            if (comp1.includes('4x^2') && comp1.includes('-12x') && comp1.includes('+10')) {
+                feedback += '<p>✅ a) (f∘g)(x) correcto: 4x² - 12x + 10</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ a) (f∘g)(x) incorrecto. Correcto: 4x² - 12x + 10</p>';
+            }
+            
+            if (comp2.includes('2x^2') && comp2.includes('-1')) {
+                feedback += '<p>✅ b) (g∘f)(x) correcto: 2x² - 1</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ b) (g∘f)(x) incorrecto. Correcto: 2x² - 1</p>';
+            }
+            
+            document.getElementById('compositionContent').innerHTML = feedback + `<p><strong>Puntuación: ${score}/2</strong></p>`;
+            document.getElementById('compositionResult').style.display = 'block';
+        }
+
+        // Verificar función inversa
+        function checkInverse() {
+            const inverse = document.getElementById('inverseFunction').value.toLowerCase();
+            
+            let feedback = '<h6>Resultado:</h6>';
+            
+            if (inverse.includes('(x+2)/3') || inverse.includes('(x + 2) / 3')) {
+                feedback += '<p>✅ Correcto: f⁻¹(x) = (x + 2)/3</p>';
+                feedback += '<p>Verificación: f(f⁻¹(x)) = 3((x+2)/3) - 2 = x + 2 - 2 = x ✓</p>';
+            } else {
+                feedback += '<p>❌ Incorrecto. La respuesta correcta es: f⁻¹(x) = (x + 2)/3</p>';
+            }
+            
+            document.getElementById('inverseContent').innerHTML = feedback;
+            document.getElementById('inverseResult').style.display = 'block';
+        }
+
+        // Verificar transformaciones
+        function checkTransformations() {
+            const transform1 = document.getElementById('transform1').checked;
+            const transform2 = document.getElementById('transform2').checked;
+            const transform3 = document.getElementById('transform3').checked;
+            const transform4 = document.getElementById('transform4').checked;
+            
+            let score = 0;
+            let feedback = '<h6>Resultados:</h6>';
+            
+            if (transform1) {
+                feedback += '<p>✅ Desplazamiento 1 unidad a la derecha: Correcto</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Desplazamiento 1 unidad a la derecha: Debería estar marcado</p>';
+            }
+            
+            if (transform2) {
+                feedback += '<p>✅ Desplazamiento 3 unidades hacia arriba: Correcto</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Desplazamiento 3 unidades hacia arriba: Debería estar marcado</p>';
+            }
+            
+            if (transform3) {
+                feedback += '<p>✅ Estiramiento vertical por factor 2: Correcto</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ Estiramiento vertical por factor 2: Debería estar marcado</p>';
+            }
+            
+            if (!transform4) {
+                feedback += '<p>✅ No hay reflexión sobre el eje x: Correcto</p>';
+                score += 1;
+            } else {
+                feedback += '<p>❌ No hay reflexión sobre el eje x: No debería estar marcado</p>';
+            }
+            
+            document.getElementById('transformationContent').innerHTML = feedback + `<p><strong>Puntuación: ${score}/4</strong></p>`;
+            document.getElementById('transformationResult').style.display = 'block';
+        }
+
+        // Calcular puntuación final
+        function calculateFinalScore() {
+            const totalSections = 5;
+            const completed = completedSections.size;
+            const percentage = (completed / totalSections) * 100;
+            
+            document.getElementById('finalProgress').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = Math.round(percentage) + '%';
+            
+            let message = '';
+            if (percentage === 100) {
+                message = '<div class="alert alert-success"><h5><i class="fas fa-trophy"></i> ¡Felicitaciones!</h5><p>Has completado exitosamente el Módulo 1: Relaciones y Funciones.</p></div>';
+            } else if (percentage >= 80) {
+                message = '<div class="alert alert-info"><h5><i class="fas fa-star"></i> ¡Excelente progreso!</h5><p>Has completado la mayoría de las actividades. Continúa con las restantes.</p></div>';
+            } else if (percentage >= 60) {
+                message = '<div class="alert alert-warning"><h5><i class="fas fa-thumbs-up"></i> Buen progreso</h5><p>Has completado más de la mitad. Sigue trabajando en las actividades restantes.</p></div>';
+            } else {
+                message = '<div class="alert alert-danger"><h5><i class="fas fa-arrow-up"></i> Continúa estudiando</h5><p>Completa más actividades para reforzar tu aprendizaje.</p></div>';
+            }
+            
+            alert(message);
+        }
+
+        // Inicializar gráfica de función
+        function initializeFunctionChart() {
+            const ctx = document.getElementById('functionChart').getContext('2d');
+            
+            // Crear datos para f(x) = x² + 1
+            const data = [];
+            for (let x = -5; x <= 5; x += 0.1) {
+                data.push({x: x, y: x*x + 1});
+            }
+            
+            currentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'f(x) = x² + 1',
+                        data: data,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            title: {
+                                display: true,
+                                text: 'x'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            title: {
+                                display: true,
+                                text: 'f(x)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Inicializar gráfica de transformaciones
+        function initializeTransformationChart() {
+            const ctx = document.getElementById('transformationChart').getContext('2d');
+            
+            // Crear datos para función base
+            const baseData = [];
+            for (let x = -3; x <= 3; x += 0.1) {
+                baseData.push({x: x, y: x*x});
+            }
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Función Base: f(x) = x²',
+                        data: baseData,
+                        borderColor: '#dc3545',
+                        backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            title: {
+                                display: true,
+                                text: 'x'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            title: {
+                                display: true,
+                                text: 'f(x)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFunctionChart();
+            initializeTransformationChart();
+            updateProgress();
+        });
+
+        // Actualizar MathJax cuando cambien las pestañas
+        document.getElementById('moduleTabs').addEventListener('click', function() {
+            setTimeout(() => {
+                if (window.MathJax) {
+                    MathJax.typesetPromise();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

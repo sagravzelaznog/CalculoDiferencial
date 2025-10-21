@@ -1,0 +1,323 @@
+# Configuración de Git para el Curso de Cálculo Diferencial
+
+# Archivos de texto
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.txt text eol=lf
+
+# Archivos binarios
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Archivos de configuración
+.gitignore text eol=lf
+.gitattributes text eol=lf
+LICENSE text eol=lf
+
+# Archivos de documentación
+README.md text eol=lf
+CONTRIBUTING.md text eol=lf
+CHANGELOG.md text eol=lf
+SECURITY.md text eol=lf
+CONTRIBUTORS.md text eol=lf
+
+# Archivos de GitHub
+.github/** text eol=lf
+
+# Archivos de configuración del proyecto
+package.json text eol=lf
+config.env text eol=lf
+
+# Archivos de servidor
+server.py text eol=lf
+check_dependencies.py text eol=lf
+
+# Archivos de Firebase
+firebase-config.js text eol=lf
+firestore-rules.txt text eol=lf
+
+# Archivos de configuración de desarrollo
+INSTALACION.md text eol=lf
+INICIO_RAPIDO.md text eol=lf
+
+# Archivos de módulos
+modulo*.html text eol=lf
+ejercicios*.html text eol=lf
+
+# Archivos de documentación de módulos
+README_MODULO*.md text eol=lf
+DEMOSTRACION*.md text eol=lf
+
+# Archivos de estilos
+*.css text eol=lf
+modulo*-styles.css text eol=lf
+
+# Archivos JavaScript
+*.js text eol=lf
+derivadas.js text eol=lf
+module-navigation.js text eol=lf
+config.js text eol=lf
+auth-manager.js text eol=lf
+
+# Archivos de configuración de entorno
+.env* text eol=lf
+config.env text eol=lf
+
+# Archivos de configuración de Python
+requirements.txt text eol=lf
+*.py text eol=lf
+
+# Archivos de configuración de Node.js
+package*.json text eol=lf
+yarn.lock text eol=lf
+package-lock.json text eol=lf
+
+# Archivos de configuración de Git
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Archivos de configuración de IDE
+.vscode/** text eol=lf
+.idea/** text eol=lf
+
+# Archivos de configuración de sistema
+.DS_Store binary
+Thumbs.db binary
+desktop.ini binary
+
+# Archivos de configuración de caché
+.cache/** binary
+.parcel-cache/** binary
+node_modules/** binary
+
+# Archivos de configuración de logs
+*.log text eol=lf
+logs/** text eol=lf
+
+# Archivos de configuración de temporales
+tmp/** binary
+temp/** binary
+*.tmp binary
+*.temp binary
+
+# Archivos de configuración de backup
+*.bak text eol=lf
+*.backup text eol=lf
+*.old text eol=lf
+
+# Archivos de configuración de compresión
+*.zip binary
+*.tar.gz binary
+*.rar binary
+*.7z binary
+
+# Archivos de configuración de imágenes optimizadas
+*.webp binary
+*.avif binary
+
+# Archivos de configuración de service worker
+sw-cache/** binary
+
+# Archivos de configuración de Python
+__pycache__/** binary
+*.pyc binary
+*.pyo binary
+*.pyd binary
+*.so binary
+.Python binary
+env/** binary
+venv/** binary
+ENV/** binary
+env.bak/** binary
+venv.bak/** binary
+
+# Archivos de configuración de dependencias
+jspm_packages/** binary
+.npm/** binary
+.eslintcache text eol=lf
+.rpt2_cache/** binary
+.rts2_cache_cjs/** binary
+.rts2_cache_es/** binary
+.rts2_cache_umd/** binary
+.node_repl_history text eol=lf
+*.tgz binary
+.yarn-integrity text eol=lf
+
+# Archivos de configuración de build
+build/** binary
+dist/** binary
+*.min.js text eol=lf
+*.min.css text eol=lf
+
+# Archivos de configuración de coverage
+coverage/** binary
+*.lcov text eol=lf
+.nyc_output/** binary
+
+# Archivos de configuración de parcel
+.cache/** binary
+.parcel-cache/** binary
+
+# Archivos de configuración de next.js
+.next/** binary
+
+# Archivos de configuración de nuxt.js
+.nuxt/** binary
+
+# Archivos de configuración de vuepress
+.vuepress/dist/** binary
+
+# Archivos de configuración de serverless
+.serverless/** binary
+
+# Archivos de configuración de fusebox
+.fusebox/** binary
+
+# Archivos de configuración de dynamodb
+.dynamodb/** binary
+
+# Archivos de configuración de tern
+.tern-port text eol=lf
+
+# Archivos de configuración de runtime
+pids/** binary
+*.pid text eol=lf
+*.seed text eol=lf
+*.pid.lock text eol=lf
+
+# Archivos de configuración de debug
+npm-debug.log* text eol=lf
+yarn-debug.log* text eol=lf
+yarn-error.log* text eol=lf
+
+# Archivos de configuración de IDE
+.vscode/** text eol=lf
+.idea/** text eol=lf
+*.swp text eol=lf
+*.swo text eol=lf
+*~ text eol=lf
+
+# Archivos de configuración de OS
+.DS_Store binary
+.DS_Store? binary
+._* binary
+.Spotlight-V100 binary
+.Trashes binary
+ehthumbs.db binary
+Thumbs.db binary
+
+# Archivos de configuración de logs
+logs/** text eol=lf
+*.log text eol=lf
+
+# Archivos de configuración de runtime
+pids/** binary
+*.pid text eol=lf
+*.seed text eol=lf
+*.pid.lock text eol=lf
+
+# Archivos de configuración de coverage
+coverage/** binary
+*.lcov text eol=lf
+
+# Archivos de configuración de nyc
+.nyc_output/** binary
+
+# Archivos de configuración de dependencias
+jspm_packages/** binary
+
+# Archivos de configuración de npm
+.npm/** binary
+
+# Archivos de configuración de eslint
+.eslintcache text eol=lf
+
+# Archivos de configuración de microbundle
+.rpt2_cache/** binary
+.rts2_cache_cjs/** binary
+.rts2_cache_es/** binary
+.rts2_cache_umd/** binary
+
+# Archivos de configuración de REPL
+.node_repl_history text eol=lf
+
+# Archivos de configuración de npm pack
+*.tgz binary
+
+# Archivos de configuración de yarn
+.yarn-integrity text eol=lf
+
+# Archivos de configuración de dotenv
+.env text eol=lf
+
+# Archivos de configuración de parcel
+.cache/** binary
+.parcel-cache/** binary
+
+# Archivos de configuración de next.js
+.next/** binary
+
+# Archivos de configuración de nuxt.js
+.nuxt/** binary
+
+# Archivos de configuración de vuepress
+.vuepress/dist/** binary
+
+# Archivos de configuración de serverless
+.serverless/** binary
+
+# Archivos de configuración de fusebox
+.fusebox/** binary
+
+# Archivos de configuración de dynamodb
+.dynamodb/** binary
+
+# Archivos de configuración de tern
+.tern-port text eol=lf
+
+# Archivos de configuración de temporales
+tmp/** binary
+temp/** binary
+
+# Archivos de configuración de Python
+__pycache__/** binary
+*.pyc binary
+*.pyo binary
+*.pyd binary
+*.so binary
+.Python binary
+env/** binary
+venv/** binary
+ENV/** binary
+env.bak/** binary
+venv.bak/** binary
+
+# Archivos de configuración de backup
+*.bak text eol=lf
+*.backup text eol=lf
+*.old text eol=lf
+
+# Archivos de configuración de compresión
+*.zip binary
+*.tar.gz binary
+*.rar binary
+
+# Archivos de configuración de imágenes optimizadas
+*.webp binary
+*.avif binary
+
+# Archivos de configuración de service worker
+sw-cache/** binary

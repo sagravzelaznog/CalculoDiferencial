@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Límites - Cálculo Diferencial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f8f9fa;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .main-container {
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        .header-module {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .module-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-module {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-item-module {
+            margin: 0.5rem 0;
+        }
+
+        .nav-link-module {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link-module:hover {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-link-module.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        .theorem-box {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .interactive-canvas {
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            margin: 1rem 0;
+            background: white;
+        }
+
+        .formula-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .step-by-step {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .step {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .btn-interactive {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .progress-module {
+            background: var(--bg-light);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .progress-bar-module {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 5px;
+            height: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .floating-menu {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .floating-menu button {
+            display: block;
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .floating-menu button:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+            margin: 1rem 0;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .floating-menu {
+                display: none;
+            }
+            
+            .module-title {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 1rem;
+            }
+        }
+
+        .graph-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .interactive-slider {
+            margin: 1rem 0;
+        }
+
+        .slider-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .slider-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-range {
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+
+        .result-display {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header del Módulo -->
+        <div class="header-module">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="module-title">
+                            <i class="fas fa-infinity"></i>
+                            Módulo 2: Límites
+                        </h1>
+                        <p class="module-subtitle">
+                            Comprende el concepto de límite como fundamento del cálculo diferencial y aplica técnicas para calcular límites
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="progress-module">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Progreso del Módulo</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar-module" id="progressBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <!-- Navegación del Módulo -->
+                <div class="col-md-3">
+                    <div class="nav-module">
+                        <h5 class="mb-3">
+                            <i class="fas fa-list"></i> Contenidos del Módulo
+                        </h5>
+                        <nav class="nav flex-column">
+                            <a href="#concepto-limite" class="nav-link-module active" data-section="concepto-limite">
+                                <i class="fas fa-lightbulb"></i> 2.1 Concepto de Límite
+                            </a>
+                            <a href="#propiedades-limites" class="nav-link-module" data-section="propiedades-limites">
+                                <i class="fas fa-cogs"></i> 2.2 Propiedades de Límites
+                            </a>
+                            <a href="#tecnicas-calculo" class="nav-link-module" data-section="tecnicas-calculo">
+                                <i class="fas fa-tools"></i> 2.3 Técnicas de Cálculo
+                            </a>
+                            <a href="#limites-especiales" class="nav-link-module" data-section="limites-especiales">
+                                <i class="fas fa-star"></i> 2.4 Límites Especiales
+                            </a>
+                            <a href="#continuidad" class="nav-link-module" data-section="continuidad">
+                                <i class="fas fa-link"></i> 2.5 Continuidad
+                            </a>
+                            <a href="#ejercicios" class="nav-link-module" data-section="ejercicios">
+                                <i class="fas fa-dumbbell"></i> Ejercicios Interactivos
+                            </a>
+                            <a href="#evaluacion" class="nav-link-module" data-section="evaluacion">
+                                <i class="fas fa-clipboard-check"></i> Evaluación
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Contenido Principal -->
+                <div class="col-md-9">
+                    <!-- Sección 2.1: Concepto de Límite -->
+                    <div id="concepto-limite" class="content-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-lightbulb"></i> 2.1 Concepto de Límite
+                        </h2>
+
+                        <div class="concept-box">
+                            <h4><i class="fas fa-question-circle"></i> ¿Qué es un Límite?</h4>
+                            <p>El concepto de límite es fundamental en el cálculo diferencial. Intuitivamente, el límite de una función f(x) cuando x se acerca a un valor a, es el valor al que se aproxima f(x) cuando x se acerca arbitrariamente a a.</p>
+                        </div>
+
+                        <div class="definition-box">
+                            <h4><i class="fas fa-book"></i> Definición Intuitiva</h4>
+                            <p>Decimos que el límite de f(x) cuando x tiende a a es L, y escribimos:</p>
+                            <div class="formula-display">
+                                $$\lim_{x \to a} f(x) = L$$
+                            </div>
+                            <p>si podemos hacer que f(x) esté tan cerca de L como queramos, tomando x suficientemente cerca de a (pero diferente de a).</p>
+                        </div>
+
+                        <div class="interactive-canvas">
+                            <canvas id="limiteCanvas" width="600" height="400"></canvas>
+                            <div class="slider-container">
+                                <div class="slider-label">Valor de x:</div>
+                                <input type="range" class="form-range" id="xSlider" min="-3" max="3" step="0.1" value="1">
+                                <div class="result-display" id="limiteResult">
+                                    f(x) = <span id="fxValue">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="definition-box">
+                            <h4><i class="fas fa-calculator"></i> Definición Formal (ε-δ)</h4>
+                            <p>Para todo ε > 0, existe un δ > 0 tal que:</p>
+                            <div class="formula-display">
+                                $$0 < |x - a| < \delta \Rightarrow |f(x) - L| < \varepsilon$$
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-example"></i> Ejemplo 1: Límite Básico</h4>
+                            <p>Calcular: $\lim_{x \to 2} (3x + 1)$</p>
+                            <div class="step-by-step">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <strong>Sustitución directa:</strong> Como la función es continua en x = 2, podemos sustituir directamente.
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <strong>Cálculo:</strong> f(2) = 3(2) + 1 = 6 + 1 = 7
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <strong>Resultado:</strong> $\lim_{x \to 2} (3x + 1) = 7$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="concept-box">
+                            <h4><i class="fas fa-info-circle"></i> Límites Laterales</h4>
+                            <p>Los límites laterales nos permiten analizar el comportamiento de una función cuando nos acercamos a un punto desde la izquierda o desde la derecha:</p>
+                            <div class="formula-display">
+                                $$\lim_{x \to a^-} f(x) \quad \text{(límite por la izquierda)}$$
+                                $$\lim_{x \to a^+} f(x) \quad \text{(límite por la derecha)}$$
+                            </div>
+                            <p><strong>Teorema:</strong> $\lim_{x \to a} f(x) = L$ si y solo si $\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L$</p>
+                        </div>
+
+                        <div class="interactive-canvas">
+                            <canvas id="limitesLateralesCanvas" width="600" height="300"></canvas>
+                            <div class="slider-container">
+                                <div class="slider-label">Punto de análisis (a):</div>
+                                <input type="range" class="form-range" id="aLateralesSlider" min="-2" max="2" step="0.1" value="0">
+                                <div class="result-display">
+                                    Límite por la izquierda: <span id="limiteIzquierda">0</span><br>
+                                    Límite por la derecha: <span id="limiteDerecha">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 2.2: Propiedades de Límites -->
+                    <div id="propiedades-limites" class="content-section" style="display: none;">
+                        <h2 class="section-title">
+                            <i class="fas fa-cogs"></i> 2.2 Propiedades de Límites
+                        </h2>
+
+                        <div class="theorem-box">
+                            <h4><i class="fas fa-gavel"></i> Teoremas Fundamentales</h4>
+                            <p>Si $\lim_{x \to a} f(x) = L$ y $\lim_{x \to a} g(x) = M$, entonces:</p>
+                            
+                            <div class="formula-display">
+                                <strong>1. Límite de una constante:</strong><br>
+                                $\lim_{x \to a} c = c$
+                            </div>
+                            
+                            <div class="formula-display">
+                                <strong>2. Límite de la suma:</strong><br>
+                                $\lim_{x \to a} [f(x) + g(x)] = L + M$
+                            </div>
+                            
+                            <div class="formula-display">
+                                <strong>3. Límite del producto:</strong><br>
+                                $\lim_{x \to a} [f(x) \cdot g(x)] = L \cdot M$
+                            </div>
+                            
+                            <div class="formula-display">
+                                <strong>4. Límite del cociente:</strong><br>
+                                $\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}$ (si M ≠ 0)
+                            </div>
+                            
+                            <div class="formula-display">
+                                <strong>5. Límite de una potencia:</strong><br>
+                                $\lim_{x \to a} [f(x)]^n = L^n$
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-example"></i> Ejemplo 2: Aplicación de Propiedades</h4>
+                            <p>Calcular: $\lim_{x \to 3} (2x^2 + 3x - 1)$</p>
+                            <div class="step-by-step">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <strong>Aplicar propiedades:</strong>
+                                    $\lim_{x \to 3} (2x^2 + 3x - 1) = \lim_{x \to 3} 2x^2 + \lim_{x \to 3} 3x - \lim_{x \to 3} 1$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <strong>Factorizar constantes:</strong>
+                                    $= 2\lim_{x \to 3} x^2 + 3\lim_{x \to 3} x - 1$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <strong>Sustituir:</strong>
+                                    $= 2(3)^2 + 3(3) - 1 = 2(9) + 9 - 1 = 18 + 9 - 1 = 26$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="concept-box">
+                            <h4><i class="fas fa-infinity"></i> Límites Infinitos y al Infinito</h4>
+                            <p><strong>Límites infinitos:</strong> Cuando la función crece sin límite:</p>
+                            <div class="formula-display">
+                                $\lim_{x \to a} f(x) = +\infty$ o $\lim_{x \to a} f(x) = -\infty$
+                            </div>
+                            
+                            <p><strong>Límites al infinito:</strong> Cuando x tiende a infinito:</p>
+                            <div class="formula-display">
+                                $\lim_{x \to +\infty} f(x) = L$ o $\lim_{x \to -\infty} f(x) = L$
+                            </div>
+                        </div>
+
+                        <div class="interactive-canvas">
+                            <canvas id="limitesInfinitosCanvas" width="600" height="300"></canvas>
+                            <div class="slider-container">
+                                <div class="slider-label">Tipo de límite:</div>
+                                <select id="tipoLimiteSelect" class="form-select">
+                                    <option value="infinito">Límite infinito</option>
+                                    <option value="al-infinito">Límite al infinito</option>
+                                </select>
+                                <div class="result-display" id="limiteInfinitoResult">
+                                    Resultado: <span id="resultadoInfinito">∞</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 2.3: Técnicas de Cálculo -->
+                    <div id="tecnicas-calculo" class="content-section" style="display: none;">
+                        <h2 class="section-title">
+                            <i class="fas fa-tools"></i> 2.3 Técnicas de Cálculo de Límites
+                        </h2>
+
+                        <div class="concept-box">
+                            <h4><i class="fas fa-magic"></i> Técnicas Principales</h4>
+                            <p>Cuando la sustitución directa no funciona, utilizamos diferentes técnicas:</p>
+                        </div>
+
+                        <div class="theorem-box">
+                            <h4><i class="fas fa-cut"></i> 1. Factorización</h4>
+                            <p>Útil para límites que dan forma indeterminada 0/0:</p>
+                            <div class="formula-display">
+                                $\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{(x-a)h(x)}{(x-a)k(x)} = \lim_{x \to a} \frac{h(x)}{k(x)}$
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-example"></i> Ejemplo 3: Factorización</h4>
+                            <p>Calcular: $\lim_{x \to 2} \frac{x^2 - 4}{x - 2}$</p>
+                            <div class="step-by-step">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <strong>Identificar forma indeterminada:</strong> Al sustituir x = 2 obtenemos 0/0
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <strong>Factorizar numerador:</strong>
+                                    $x^2 - 4 = (x + 2)(x - 2)$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <strong>Simplificar:</strong>
+                                    $\frac{x^2 - 4}{x - 2} = \frac{(x + 2)(x - 2)}{x - 2} = x + 2$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">4</span>
+                                    <strong>Calcular límite:</strong>
+                                    $\lim_{x \to 2} (x + 2) = 2 + 2 = 4$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theorem-box">
+                            <h4><i class="fas fa-square-root-alt"></i> 2. Racionalización</h4>
+                            <p>Para límites con raíces que dan forma indeterminada:</p>
+                            <div class="formula-display">
+                                $\lim_{x \to a} \frac{f(x) - g(x)}{h(x)} = \lim_{x \to a} \frac{f(x) - g(x)}{h(x)} \cdot \frac{f(x) + g(x)}{f(x) + g(x)}$
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-example"></i> Ejemplo 4: Racionalización</h4>
+                            <p>Calcular: $\lim_{x \to 0} \frac{\sqrt{x + 1} - 1}{x}$</p>
+                            <div class="step-by-step">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <strong>Multiplicar por conjugado:</strong>
+                                    $\frac{\sqrt{x + 1} - 1}{x} \cdot \frac{\sqrt{x + 1} + 1}{\sqrt{x + 1} + 1}$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <strong>Simplificar numerador:</strong>
+                                    $(\sqrt{x + 1})^2 - 1^2 = (x + 1) - 1 = x$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <strong>Simplificar expresión:</strong>
+                                    $\frac{x}{x(\sqrt{x + 1} + 1)} = \frac{1}{\sqrt{x + 1} + 1}$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">4</span>
+                                    <strong>Calcular límite:</strong>
+                                    $\lim_{x \to 0} \frac{1}{\sqrt{x + 1} + 1} = \frac{1}{\sqrt{0 + 1} + 1} = \frac{1}{2}$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interactive-canvas">
+                            <canvas id="tecnicasCanvas" width="600" height="300"></canvas>
+                            <div class="slider-container">
+                                <div class="slider-label">Técnica a aplicar:</div>
+                                <select id="tecnicaSelect" class="form-select">
+                                    <option value="factorizacion">Factorización</option>
+                                    <option value="racionalizacion">Racionalización</option>
+                                    <option value="sustitucion">Sustitución directa</option>
+                                </select>
+                                <button class="btn btn-interactive" onclick="aplicarTecnica()">
+                                    <i class="fas fa-play"></i> Aplicar Técnica
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección 2.4: Límites Especiales -->
+                    <div id="limites-especiales" class="content-section" style="display: none;">
+                        <h2 class="section-title">
+                            <i class="fas fa-star"></i> 2.4 Límites Especiales
+                        </h2>
+
+                        <div class="theorem-box">
+                            <h4><i class="fas fa-sine-wave"></i> Límites Trigonométricos Fundamentales</h4>
+                            <div class="formula-display">
+                                $$\lim_{x \to 0} \frac{\sin x}{x} = 1$$
+                                $$\lim_{x \to 0} \frac{1 - \cos x}{x} = 0$$
+                                $$\lim_{x \to 0} \frac{\tan x}{x} = 1$$
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-example"></i> Ejemplo 5: Límite Trigonométrico</h4>
+                            <p>Calcular: $\lim_{x \to 0} \frac{\sin(3x)}{x}$</p>
+                            <div class="step-by-step">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <strong>Multiplicar por 3/3:</strong>
+                                    $\frac{\sin(3x)}{x} = \frac{3\sin(3x)}{3x}$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <strong>Aplicar límite fundamental:</strong>
+                                    $\lim_{x \to 0} \frac{3\sin(3x)}{3x} = 3 \cdot \lim_{u \to 0} \frac{\sin u}{u}$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <strong>Resultado:</strong>
+                                    $3 \cdot 1 = 3$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theorem-box">
+                            <h4><i class="fas fa-chart-line"></i> Límites Exponenciales y Logarítmicos</h4>
+                            <div class="formula-display">
+                                $$\lim_{x \to 0} \frac{e^x - 1}{x} = 1$$
+                                $$\lim_{x \to 0} \frac{\ln(1 + x)}{x} = 1$$
+                                $$\lim_{x \to +\infty} \left(1 + \frac{1}{x}\right)^x = e$$
+                            </div>
+                        </div>
+
+                        <div class="interactive-canvas">
+                            <canvas id="limitesEspecialesCanvas" width="600" height="300"></canvas>
+                            <div class="slider-container">
+                                <div class="slider-label">Tipo de límite especial:</div>
+                                <select id="limiteEspecialSelect" class="form-select">
+                                    <option value="sin">sin(x)/x</option>
+                                    <option value="cos">(1-cos(x))/x</option>
+                                    <option value="exp">(e^x-1)/x</option>
+                                    <option value="ln">ln(1+x)/x</option>
+                                </select>
+                                <div class="result-display" id="limiteEspecialResult">
+                                    Límite: <span id="resultadoEspecial">1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="concept-box">
+                            <h4><i class="fas fa-hospital"></i> Regla de L'Hôpital (Introducción)</h4>
+                            <p>Para formas indeterminadas 0/0 o ∞/∞:</p>
+                            <div class="formula-display">
+                                $$\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}$$
+                            </div>
+                            <p><strong>Condiciones:</strong> f(x) y g(x) deben ser derivables cerca de a, y g'(x) ≠ 0.</p>
+                        </div>
+                    </div>
+
+                    <!-- Sección 2.5: Continuidad -->
+                    <div id="continuidad" class="content-section" style="display: none;">
+                        <h2 class="section-title">
+                            <i class="fas fa-link"></i> 2.5 Continuidad
+                        </h2>
+
+                        <div class="definition-box">
+                            <h4><i class="fas fa-book"></i> Definición de Continuidad</h4>
+                            <p>Una función f(x) es continua en un punto a si:</p>
+                            <div class="formula-display">
+                                $$\lim_{x \to a} f(x) = f(a)$$
+                            </div>
+                            <p>Esto significa que:</p>
+                            <ul>
+                                <li>f(a) está definida</li>
+                                <li>$\lim_{x \to a} f(x)$ existe</li>
+                                <li>El límite es igual al valor de la función</li>
+                            </ul>
+                        </div>
+
+                        <div class="concept-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Tipos de Discontinuidades</h4>
+                            <p><strong>1. Discontinuidad evitable:</strong> El límite existe pero no coincide con f(a)</p>
+                            <p><strong>2. Discontinuidad de salto:</strong> Los límites laterales existen pero son diferentes</p>
+                            <p><strong>3. Discontinuidad infinita:</strong> Al menos uno de los límites laterales es infinito</p>
+                        </div>
+
+                        <div class="interactive-canvas">
+                            <canvas id="continuidadCanvas" width="600" height="300"></canvas>
+                            <div class="slider-container">
+                                <div class="slider-label">Tipo de discontinuidad:</div>
+                                <select id="discontinuidadSelect" class="form-select">
+                                    <option value="continua">Función continua</option>
+                                    <option value="evitable">Discontinuidad evitable</option>
+                                    <option value="salto">Discontinuidad de salto</option>
+                                    <option value="infinita">Discontinuidad infinita</option>
+                                </select>
+                                <div class="result-display" id="continuidadResult">
+                                    Estado: <span id="estadoContinuidad">Continua</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-example"></i> Ejemplo 6: Análisis de Continuidad</h4>
+                            <p>Analizar la continuidad de $f(x) = \frac{x^2 - 1}{x - 1}$ en x = 1</p>
+                            <div class="step-by-step">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <strong>Evaluar f(1):</strong> f(1) no está definida (0/0)
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <strong>Calcular límite:</strong>
+                                    $\lim_{x \to 1} \frac{x^2 - 1}{x - 1} = \lim_{x \to 1} \frac{(x+1)(x-1)}{x-1} = \lim_{x \to 1} (x+1) = 2$
+                                </div>
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <strong>Conclusión:</strong> Discontinuidad evitable en x = 1
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ejercicios Interactivos -->
+                    <div id="ejercicios" class="content-section" style="display: none;">
+                        <h2 class="section-title">
+                            <i class="fas fa-dumbbell"></i> Ejercicios Interactivos
+                        </h2>
+
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-question"></i> Ejercicio 1: Límite Básico</h4>
+                            <p>Calcular: $\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tu respuesta:</label>
+                                        <input type="number" class="form-control" id="ejercicio1Respuesta" placeholder="Ingresa tu respuesta">
+                                    </div>
+                                    <button class="btn btn-interactive" onclick="verificarEjercicio(1)">
+                                        <i class="fas fa-check"></i> Verificar
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="ejercicio1Resultado"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-question"></i> Ejercicio 2: Límite Trigonométrico</h4>
+                            <p>Calcular: $\lim_{x \to 0} \frac{\sin(2x)}{x}$</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tu respuesta:</label>
+                                        <input type="number" class="form-control" id="ejercicio2Respuesta" placeholder="Ingresa tu respuesta">
+                                    </div>
+                                    <button class="btn btn-interactive" onclick="verificarEjercicio(2)">
+                                        <i class="fas fa-check"></i> Verificar
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="ejercicio2Resultado"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <h4><i class="fas fa-question"></i> Ejercicio 3: Racionalización</h4>
+                            <p>Calcular: $\lim_{x \to 0} \frac{\sqrt{x + 4} - 2}{x}$</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tu respuesta:</label>
+                                        <input type="number" class="form-control" id="ejercicio3Respuesta" step="0.25" placeholder="Ingresa tu respuesta">
+                                    </div>
+                                    <button class="btn btn-interactive" onclick="verificarEjercicio(3)">
+                                        <i class="fas fa-check"></i> Verificar
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="ejercicio3Resultado"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-module">
+                            <h5>Progreso en Ejercicios</h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Ejercicios Completados</span>
+                                <span id="ejerciciosCompletados">0/3</span>
+                            </div>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar-module" id="ejerciciosProgressBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluación -->
+                    <div id="evaluacion" class="content-section" style="display: none;">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-check"></i> Evaluación del Módulo
+                        </h2>
+
+                        <div class="alert alert-custom alert-info">
+                            <h5><i class="fas fa-info-circle"></i> Instrucciones</h5>
+                            <p>Responde las siguientes preguntas para evaluar tu comprensión del módulo de límites. Tienes 30 minutos para completar la evaluación.</p>
+                        </div>
+
+                        <div class="exercise-box">
+                            <h4>Pregunta 1</h4>
+                            <p>¿Cuál es el valor de $\lim_{x \to 2} \frac{x^2 - 4}{x - 2}$?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta1" value="0">
+                                <label class="form-check-label">0</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta1" value="2">
+                                <label class="form-check-label">2</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta1" value="4">
+                                <label class="form-check-label">4</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta1" value="∞">
+                                <label class="form-check-label">No existe</label>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <h4>Pregunta 2</h4>
+                            <p>¿Cuál es el valor de $\lim_{x \to 0} \frac{\sin x}{x}$?</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta2" value="0">
+                                <label class="form-check-label">0</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta2" value="1">
+                                <label class="form-check-label">1</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta2" value="∞">
+                                <label class="form-check-label">∞</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta2" value="no-existe">
+                                <label class="form-check-label">No existe</label>
+                            </div>
+                        </div>
+
+                        <div class="exercise-box">
+                            <h4>Pregunta 3</h4>
+                            <p>Una función es continua en un punto si:</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta3" value="a">
+                                <label class="form-check-label">El límite existe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta3" value="b">
+                                <label class="form-check-label">La función está definida en ese punto</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta3" value="c">
+                                <label class="form-check-label">El límite es igual al valor de la función</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="pregunta3" value="d">
+                                <label class="form-check-label">Los límites laterales son iguales</label>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-interactive btn-lg" onclick="calificarEvaluacion()">
+                                <i class="fas fa-graduation-cap"></i> Calificar Evaluación
+                            </button>
+                        </div>
+
+                        <div id="resultadoEvaluacion" class="mt-4" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú Flotante -->
+    <div class="floating-menu">
+        <button onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button onclick="toggleFullscreen()">
+            <i class="fas fa-expand"></i>
+        </button>
+        <button onclick="printModule()">
+            <i class="fas fa-print"></i>
+        </button>
+        <button onclick="shareModule()">
+            <i class="fas fa-share"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <script>
+        // Variables globales
+        let currentSection = 'concepto-limite';
+        let ejerciciosCompletados = 0;
+        let progresoModulo = 0;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeModule();
+            setupEventListeners();
+            drawInitialGraphs();
+        });
+
+        function initializeModule() {
+            updateProgress();
+            updateNavigation();
+        }
+
+        function setupEventListeners() {
+            // Navegación
+            document.querySelectorAll('.nav-link-module').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.dataset.section;
+                    showSection(section);
+                    updateNavigation();
+                });
+            });
+
+            // Sliders interactivos
+            setupSliders();
+        }
+
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).style.display = 'block';
+            currentSection = sectionId;
+
+            // Actualizar progreso
+            updateProgress();
+
+            // Redibujar gráficos si es necesario
+            setTimeout(() => {
+                drawGraphsForSection(sectionId);
+            }, 100);
+        }
+
+        function updateNavigation() {
+            document.querySelectorAll('.nav-link-module').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const sections = ['concepto-limite', 'propiedades-limites', 'tecnicas-calculo', 'limites-especiales', 'continuidad', 'ejercicios', 'evaluacion'];
+            const currentIndex = sections.indexOf(currentSection);
+            progresoModulo = Math.round(((currentIndex + 1) / sections.length) * 100);
+            
+            document.getElementById('progressBar').style.width = progresoModulo + '%';
+            document.getElementById('progressPercent').textContent = progresoModulo + '%';
+        }
+
+        function setupSliders() {
+            // Slider para límite básico
+            const xSlider = document.getElementById('xSlider');
+            if (xSlider) {
+                xSlider.addEventListener('input', function() {
+                    const x = parseFloat(this.value);
+                    const fx = 3 * x + 1; // Función ejemplo: 3x + 1
+                    document.getElementById('fxValue').textContent = fx.toFixed(2);
+                    drawLimiteGraph(x, fx);
+                });
+            }
+
+            // Slider para límites laterales
+            const aLateralesSlider = document.getElementById('aLateralesSlider');
+            if (aLateralesSlider) {
+                aLateralesSlider.addEventListener('input', function() {
+                    const a = parseFloat(this.value);
+                    drawLimitesLaterales(a);
+                });
+            }
+
+            // Selector de límites especiales
+            const limiteEspecialSelect = document.getElementById('limiteEspecialSelect');
+            if (limiteEspecialSelect) {
+                limiteEspecialSelect.addEventListener('change', function() {
+                    drawLimitesEspeciales(this.value);
+                });
+            }
+
+            // Selector de discontinuidades
+            const discontinuidadSelect = document.getElementById('discontinuidadSelect');
+            if (discontinuidadSelect) {
+                discontinuidadSelect.addEventListener('change', function() {
+                    drawContinuidad(this.value);
+                });
+            }
+        }
+
+        function drawInitialGraphs() {
+            drawLimiteGraph(1, 4);
+            drawLimitesLaterales(0);
+            drawLimitesEspeciales('sin');
+            drawContinuidad('continua');
+        }
+
+        function drawGraphsForSection(sectionId) {
+            switch(sectionId) {
+                case 'concepto-limite':
+                    drawLimiteGraph(1, 4);
+                    drawLimitesLaterales(0);
+                    break;
+                case 'propiedades-limites':
+                    drawLimitesInfinitos();
+                    break;
+                case 'tecnicas-calculo':
+                    drawTecnicas();
+                    break;
+                case 'limites-especiales':
+                    drawLimitesEspeciales('sin');
+                    break;
+                case 'continuidad':
+                    drawContinuidad('continua');
+                    break;
+            }
+        }
+
+        function drawLimiteGraph(x, fx) {
+            const canvas = document.getElementById('limiteCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar coordenadas
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 50;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            // Dibujar función f(x) = 3x + 1
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            for (let i = 0; i < width; i++) {
+                const xCoord = (i - centerX) / scale;
+                const yCoord = 3 * xCoord + 1;
+                const pixelY = centerY - yCoord * scale;
+                
+                if (i === 0) {
+                    ctx.moveTo(i, pixelY);
+                } else {
+                    ctx.lineTo(i, pixelY);
+                }
+            }
+            ctx.stroke();
+            
+            // Marcar punto actual
+            const pixelX = centerX + x * scale;
+            const pixelY = centerY - fx * scale;
+            
+            ctx.fillStyle = '#dc3545';
+            ctx.beginPath();
+            ctx.arc(pixelX, pixelY, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Etiquetas
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.fillText('x', width - 20, centerY - 10);
+            ctx.fillText('f(x)', centerX + 10, 20);
+            ctx.fillText(`x = ${x.toFixed(1)}`, pixelX + 10, pixelY - 10);
+            ctx.fillText(`f(x) = ${fx.toFixed(2)}`, pixelX + 10, pixelY + 20);
+        }
+
+        function drawLimitesLaterales(a) {
+            const canvas = document.getElementById('limitesLateralesCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 80;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            // Dibujar función con discontinuidad
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 3;
+            
+            // Lado izquierdo
+            ctx.beginPath();
+            for (let i = 0; i < centerX + a * scale; i++) {
+                const xCoord = (i - centerX) / scale;
+                const yCoord = xCoord * xCoord; // f(x) = x²
+                const pixelY = centerY - yCoord * scale;
+                
+                if (i === 0) {
+                    ctx.moveTo(i, pixelY);
+                } else {
+                    ctx.lineTo(i, pixelY);
+                }
+            }
+            ctx.stroke();
+            
+            // Lado derecho (con salto)
+            ctx.beginPath();
+            for (let i = centerX + a * scale; i < width; i++) {
+                const xCoord = (i - centerX) / scale;
+                const yCoord = xCoord * xCoord + 1; // f(x) = x² + 1
+                const pixelY = centerY - yCoord * scale;
+                
+                if (i === centerX + a * scale) {
+                    ctx.moveTo(i, pixelY);
+                } else {
+                    ctx.lineTo(i, pixelY);
+                }
+            }
+            ctx.stroke();
+            
+            // Marcar punto de discontinuidad
+            const pixelX = centerX + a * scale;
+            const limiteIzquierda = a * a;
+            const limiteDerecha = a * a + 1;
+            
+            // Punto izquierdo
+            ctx.fillStyle = '#28a745';
+            ctx.beginPath();
+            ctx.arc(pixelX, centerY - limiteIzquierda * scale, 4, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Punto derecho
+            ctx.fillStyle = '#ffc107';
+            ctx.beginPath();
+            ctx.arc(pixelX, centerY - limiteDerecha * scale, 4, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Actualizar valores
+            document.getElementById('limiteIzquierda').textContent = limiteIzquierda.toFixed(2);
+            document.getElementById('limiteDerecha').textContent = limiteDerecha.toFixed(2);
+            
+            // Etiquetas
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.fillText('x', width - 20, centerY - 10);
+            ctx.fillText('f(x)', centerX + 10, 20);
+        }
+
+        function drawLimitesEspeciales(tipo) {
+            const canvas = document.getElementById('limitesEspecialesCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 100;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            let resultado = 1;
+            
+            for (let i = 0; i < width; i++) {
+                const xCoord = (i - centerX) / scale;
+                
+                let yCoord;
+                switch(tipo) {
+                    case 'sin':
+                        yCoord = xCoord === 0 ? 1 : Math.sin(xCoord) / xCoord;
+                        resultado = 1;
+                        break;
+                    case 'cos':
+                        yCoord = xCoord === 0 ? 0 : (1 - Math.cos(xCoord)) / xCoord;
+                        resultado = 0;
+                        break;
+                    case 'exp':
+                        yCoord = xCoord === 0 ? 1 : (Math.exp(xCoord) - 1) / xCoord;
+                        resultado = 1;
+                        break;
+                    case 'ln':
+                        yCoord = xCoord === 0 ? 1 : Math.log(1 + xCoord) / xCoord;
+                        resultado = 1;
+                        break;
+                }
+                
+                const pixelY = centerY - yCoord * scale;
+                
+                if (i === 0) {
+                    ctx.moveTo(i, pixelY);
+                } else {
+                    ctx.lineTo(i, pixelY);
+                }
+            }
+            ctx.stroke();
+            
+            // Marcar punto en x = 0
+            ctx.fillStyle = '#dc3545';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - resultado * scale, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Actualizar resultado
+            document.getElementById('resultadoEspecial').textContent = resultado;
+            
+            // Etiquetas
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.fillText('x', width - 20, centerY - 10);
+            ctx.fillText('f(x)', centerX + 10, 20);
+        }
+
+        function drawContinuidad(tipo) {
+            const canvas = document.getElementById('continuidadCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 60;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            let estado = 'Continua';
+            
+            for (let i = 0; i < width; i++) {
+                const xCoord = (i - centerX) / scale;
+                let yCoord;
+                
+                switch(tipo) {
+                    case 'continua':
+                        yCoord = xCoord * xCoord; // f(x) = x²
+                        estado = 'Continua';
+                        break;
+                    case 'evitable':
+                        yCoord = xCoord === 0 ? 0 : xCoord * xCoord; // Discontinuidad evitable en x = 0
+                        estado = 'Discontinuidad evitable';
+                        break;
+                    case 'salto':
+                        yCoord = xCoord < 0 ? xCoord : xCoord + 1; // Salto en x = 0
+                        estado = 'Discontinuidad de salto';
+                        break;
+                    case 'infinita':
+                        yCoord = xCoord === 0 ? (xCoord > 0 ? 100 : -100) : 1 / xCoord;
+                        estado = 'Discontinuidad infinita';
+                        break;
+                }
+                
+                const pixelY = centerY - yCoord * scale;
+                
+                if (i === 0) {
+                    ctx.moveTo(i, pixelY);
+                } else {
+                    ctx.lineTo(i, pixelY);
+                }
+            }
+            ctx.stroke();
+            
+            // Actualizar estado
+            document.getElementById('estadoContinuidad').textContent = estado;
+            
+            // Etiquetas
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.fillText('x', width - 20, centerY - 10);
+            ctx.fillText('f(x)', centerX + 10, 20);
+        }
+
+        function drawLimitesInfinitos() {
+            // Implementar gráfico de límites infinitos
+        }
+
+        function drawTecnicas() {
+            // Implementar gráfico de técnicas
+        }
+
+        function aplicarTecnica() {
+            const tecnica = document.getElementById('tecnicaSelect').value;
+            alert(`Aplicando técnica: ${tecnica}`);
+        }
+
+        function verificarEjercicio(numero) {
+            const respuestas = {
+                1: 6, // (x²-9)/(x-3) = (x+3)(x-3)/(x-3) = x+3, cuando x→3: 3+3 = 6
+                2: 2, // sin(2x)/x = 2sin(2x)/(2x) = 2·1 = 2
+                3: 0.25 // (√(x+4)-2)/x = (√(x+4)-2)(√(x+4)+2)/(x(√(x+4)+2)) = x/(x(√(x+4)+2)) = 1/(√(x+4)+2), cuando x→0: 1/(2+2) = 1/4 = 0.25
+            };
+            
+            const respuestaUsuario = parseFloat(document.getElementById(`ejercicio${numero}Respuesta`).value);
+            const respuestaCorrecta = respuestas[numero];
+            const resultadoDiv = document.getElementById(`ejercicio${numero}Resultado`);
+            
+            if (Math.abs(respuestaUsuario - respuestaCorrecta) < 0.01) {
+                resultadoDiv.innerHTML = '<div class="alert alert-success"><i class="fas fa-check"></i> ¡Correcto!</div>';
+                ejerciciosCompletados++;
+            } else {
+                resultadoDiv.innerHTML = `<div class="alert alert-danger"><i class="fas fa-times"></i> Incorrecto. La respuesta correcta es ${respuestaCorrecta}</div>`;
+            }
+            
+            updateEjerciciosProgress();
+        }
+
+        function updateEjerciciosProgress() {
+            const porcentaje = Math.round((ejerciciosCompletados / 3) * 100);
+            document.getElementById('ejerciciosProgressBar').style.width = porcentaje + '%';
+            document.getElementById('ejerciciosCompletados').textContent = `${ejerciciosCompletados}/3`;
+        }
+
+        function calificarEvaluacion() {
+            const respuestas = {
+                pregunta1: '4',
+                pregunta2: '1',
+                pregunta3: 'c'
+            };
+            
+            let correctas = 0;
+            let total = 3;
+            
+            Object.keys(respuestas).forEach(pregunta => {
+                const respuestaSeleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
+                if (respuestaSeleccionada && respuestaSeleccionada.value === respuestas[pregunta]) {
+                    correctas++;
+                }
+            });
+            
+            const porcentaje = Math.round((correctas / total) * 100);
+            const resultadoDiv = document.getElementById('resultadoEvaluacion');
+            
+            let mensaje = '';
+            if (porcentaje >= 80) {
+                mensaje = `<div class="alert alert-success"><h4><i class="fas fa-trophy"></i> ¡Excelente!</h4><p>Obtuviste ${correctas}/${total} respuestas correctas (${porcentaje}%)</p></div>`;
+            } else if (porcentaje >= 60) {
+                mensaje = `<div class="alert alert-warning"><h4><i class="fas fa-thumbs-up"></i> Bien</h4><p>Obtuviste ${correctas}/${total} respuestas correctas (${porcentaje}%)</p></div>`;
+            } else {
+                mensaje = `<div class="alert alert-danger"><h4><i class="fas fa-exclamation-triangle"></i> Necesitas repasar</h4><p>Obtuviste ${correctas}/${total} respuestas correctas (${porcentaje}%)</p></div>`;
+            }
+            
+            resultadoDiv.innerHTML = mensaje;
+            resultadoDiv.style.display = 'block';
+        }
+
+        // Funciones del menú flotante
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function printModule() {
+            window.print();
+        }
+
+        function shareModule() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Módulo 2: Límites - Cálculo Diferencial',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Enlace copiado al portapapeles');
+            }
+        }
+    </script>
+</body>
+</html>

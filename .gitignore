@@ -4,9 +4,15 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Production builds
+# Build outputs
 build/
 dist/
+*.min.js
+*.min.css
+
+# Cache directories
+.cache/
+.parcel-cache/
 
 # Environment variables
 .env
@@ -43,6 +49,9 @@ pids
 
 # Coverage directory used by tools like istanbul
 coverage/
+*.lcov
+
+# nyc test coverage
 .nyc_output
 
 # Dependency directories
@@ -50,6 +59,15 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
 
 # Optional REPL history
 .node_repl_history
@@ -60,34 +78,206 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
-# Firebase
-.firebase/
-firebase-debug.log
-firebase-debug.*.log
+# dotenv environment variables file
+.env
 
-# Netlify
-.netlify/
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
 
-# PDF files (originales del curso)
-*.pdf
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
 
 # Temporary files
-*.tmp
-*.temp
+tmp/
+temp/
 
-# Cache
+# Python files (if any Python scripts are added later)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Image optimization cache
+*.webp
+*.avif
+
+# Service worker cache
+sw-cache/
+
+# Archivos específicos del proyecto
+# Archivos de configuración local
+firebase-config.local.js
+config.local.js
+
+# Archivos de prueba
+test-*.html
+debug-*.js
+
+# Archivos de desarrollo
+dev-*.html
+dev-*.js
+
+# Archivos de backup del proyecto
+backup/
+*.backup
+
+# Archivos de logs del proyecto
+logs/
+*.log
+
+# Archivos temporales del proyecto
+temp/
+tmp/
+
+# Archivos de configuración de IDE específicos del proyecto
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+
+# Archivos de configuración de sistema específicos del proyecto
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de configuración de caché específicos del proyecto
 .cache/
 .parcel-cache/
 
-# Testing
+# Archivos de configuración de dependencias específicos del proyecto
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de configuración de build específicos del proyecto
+build/
+dist/
+*.min.js
+*.min.css
+
+# Archivos de configuración de coverage específicos del proyecto
 coverage/
-.nyc_output/
+*.lcov
 
-# Storybook
-storybook-static/
+# Archivos de configuración de nyc específicos del proyecto
+.nyc_output
 
-# Local development
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Archivos de configuración de dependencias específicos del proyecto
+jspm_packages/
+
+# Archivos de configuración de npm específicos del proyecto
+.npm
+
+# Archivos de configuración de eslint específicos del proyecto
+.eslintcache
+
+# Archivos de configuración de microbundle específicos del proyecto
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Archivos de configuración de REPL específicos del proyecto
+.node_repl_history
+
+# Archivos de configuración de npm pack específicos del proyecto
+*.tgz
+
+# Archivos de configuración de yarn específicos del proyecto
+.yarn-integrity
+
+# Archivos de configuración de dotenv específicos del proyecto
+.env
+
+# Archivos de configuración de parcel específicos del proyecto
+.cache
+.parcel-cache
+
+# Archivos de configuración de next.js específicos del proyecto
+.next
+
+# Archivos de configuración de nuxt.js específicos del proyecto
+.nuxt
+
+# Archivos de configuración de vuepress específicos del proyecto
+.vuepress/dist
+
+# Archivos de configuración de serverless específicos del proyecto
+.serverless
+
+# Archivos de configuración de fusebox específicos del proyecto
+.fusebox/
+
+# Archivos de configuración de dynamodb específicos del proyecto
+.dynamodb/
+
+# Archivos de configuración de tern específicos del proyecto
+.tern-port
+
+# Archivos de configuración de temporales específicos del proyecto
+tmp/
+temp/
+
+# Archivos de configuración de Python específicos del proyecto
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Archivos de configuración de backup específicos del proyecto
+*.bak
+*.backup
+*.old
+
+# Archivos de configuración de compresión específicos del proyecto
+*.zip
+*.tar.gz
+*.rar
+
+# Archivos de configuración de imágenes optimizadas específicos del proyecto
+*.webp
+*.avif
+
+# Archivos de configuración de service worker específicos del proyecto
+sw-cache/

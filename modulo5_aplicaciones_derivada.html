@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5: Aplicaciones de la Derivada - Cálculo Diferencial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-menu a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .section h4 {
+            color: #7f8c8d;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            padding-left: 10px;
+            border-left: 3px solid #f39c12;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .step-number {
+            background: #28a745;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(250, 112, 154, 0.3);
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2c3e50;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(168, 237, 234, 0.3);
+        }
+
+        .interactive-demo {
+            background: #2c3e50;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .graph-container {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #dc3545;
+        }
+
+        .tip {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Módulo 5: Aplicaciones de la Derivada</h1>
+            <p>Explorando el poder del cálculo diferencial en la resolución de problemas reales</p>
+        </div>
+
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#analisis">Análisis de Funciones</a></li>
+                <li><a href="#optimizacion">Optimización</a></li>
+                <li><a href="#aplicaciones">Problemas Aplicados</a></li>
+                <li><a href="#ejercicios">Ejercicios Interactivos</a></li>
+                <li><a href="#resumen">Resumen</a></li>
+            </ul>
+        </nav>
+
+        <!-- SECCIÓN 1: ANÁLISIS DE FUNCIONES -->
+        <section id="analisis" class="section">
+            <h2>🔍 5.1 Análisis de Funciones</h2>
+            
+            <div class="concept-box">
+                <h3>🎯 Objetivo de Aprendizaje</h3>
+                <p>Al finalizar esta sección, serás capaz de analizar completamente el comportamiento de una función utilizando las herramientas del cálculo diferencial, identificando intervalos de crecimiento, decrecimiento, máximos, mínimos y concavidad.</p>
+            </div>
+
+            <h3>📈 Crecimiento y Decrecimiento</h3>
+            
+            <div class="formula-box">
+                <strong>Teorema Fundamental:</strong><br>
+                Si f'(x) > 0 en un intervalo, entonces f(x) es <span class="highlight">creciente</span> en ese intervalo<br>
+                Si f'(x) < 0 en un intervalo, entonces f(x) es <span class="highlight">decreciente</span> en ese intervalo
+            </div>
+
+            <div class="example-box">
+                <h4>📝 Ejemplo 1: Análisis de Crecimiento</h4>
+                <p><strong>Problema:</strong> Analiza el crecimiento y decrecimiento de la función f(x) = x³ - 3x² + 2</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Calcular la derivada:</strong><br>
+                    f'(x) = 3x² - 6x = 3x(x - 2)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Encontrar puntos críticos:</strong><br>
+                    f'(x) = 0 → 3x(x - 2) = 0 → x = 0 o x = 2
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Analizar signos:</strong><br>
+                    • En (-∞, 0): f'(x) > 0 → <span class="highlight">Creciente</span><br>
+                    • En (0, 2): f'(x) < 0 → <span class="highlight">Decreciente</span><br>
+                    • En (2, ∞): f'(x) > 0 → <span class="highlight">Creciente</span>
+                </div>
+            </div>
+
+            <h3>🏔️ Máximos y Mínimos Relativos</h3>
+            
+            <div class="concept-box">
+                <h4>Definiciones Importantes:</h4>
+                <ul>
+                    <li><strong>Punto Crítico:</strong> Un punto donde f'(x) = 0 o f'(x) no existe</li>
+                    <li><strong>Máximo Relativo:</strong> Un punto donde la función cambia de creciente a decreciente</li>
+                    <li><strong>Mínimo Relativo:</strong> Un punto donde la función cambia de decreciente a creciente</li>
+                </ul>
+            </div>
+
+            <div class="formula-box">
+                <strong>Criterio de la Primera Derivada:</strong><br>
+                Si f'(x) cambia de + a - en x = c, entonces f(c) es un <span class="highlight">máximo relativo</span><br>
+                Si f'(x) cambia de - a + en x = c, entonces f(c) es un <span class="highlight">mínimo relativo</span>
+            </div>
+
+            <div class="example-box">
+                <h4>📝 Ejemplo 2: Encontrar Extremos</h4>
+                <p><strong>Problema:</strong> Encuentra los máximos y mínimos relativos de f(x) = x⁴ - 4x³ + 6x²</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Derivada:</strong> f'(x) = 4x³ - 12x² + 12x = 4x(x² - 3x + 3)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Puntos críticos:</strong> f'(x) = 0 → x = 0 (único punto crítico real)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Análisis:</strong><br>
+                    • En (-∞, 0): f'(x) < 0 → Decreciente<br>
+                    • En (0, ∞): f'(x) > 0 → Creciente<br>
+                    • En x = 0: <span class="highlight">Mínimo relativo</span> en f(0) = 0
+                </div>
+            </div>
+
+            <h3>🔄 Concavidad y Puntos de Inflexión</h3>
+            
+            <div class="formula-box">
+                <strong>Concavidad:</strong><br>
+                Si f''(x) > 0 en un intervalo, entonces f(x) es <span class="highlight">cóncava hacia arriba</span><br>
+                Si f''(x) < 0 en un intervalo, entonces f(x) es <span class="highlight">cóncava hacia abajo</span>
+            </div>
+
+            <div class="concept-box">
+                <h4>Punto de Inflexión:</h4>
+                <p>Un punto donde la función cambia de concavidad. En estos puntos, f''(x) = 0 o f''(x) no existe.</p>
+            </div>
+
+            <div class="example-box">
+                <h4>📝 Ejemplo 3: Análisis de Concavidad</h4>
+                <p><strong>Problema:</strong> Analiza la concavidad de f(x) = x³ - 6x² + 9x + 1</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Primera derivada:</strong> f'(x) = 3x² - 12x + 9
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Segunda derivada:</strong> f''(x) = 6x - 12 = 6(x - 2)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Análisis de concavidad:</strong><br>
+                    • En (-∞, 2): f''(x) < 0 → <span class="highlight">Cóncava hacia abajo</span><br>
+                    • En (2, ∞): f''(x) > 0 → <span class="highlight">Cóncava hacia arriba</span><br>
+                    • En x = 2: <span class="highlight">Punto de inflexión</span>
+                </div>
+            </div>
+
+            <h3>🎯 Criterio de la Segunda Derivada</h3>
+            
+            <div class="formula-box">
+                <strong>Criterio de la Segunda Derivada:</strong><br>
+                Si f'(c) = 0 y f''(c) > 0, entonces f(c) es un <span class="highlight">mínimo relativo</span><br>
+                Si f'(c) = 0 y f''(c) < 0, entonces f(c) es un <span class="highlight">máximo relativo</span><br>
+                Si f'(c) = 0 y f''(c) = 0, el criterio no es concluyente
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> El criterio de la segunda derivada es más rápido que el criterio de la primera derivada cuando funciona, pero siempre puedes usar el criterio de la primera derivada como respaldo.
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: OPTIMIZACIÓN -->
+        <section id="optimizacion" class="section">
+            <h2>⚡ 5.2 Optimización</h2>
+            
+            <div class="concept-box">
+                <h3>🎯 Objetivo de Aprendizaje</h3>
+                <p>Aprenderás a resolver problemas de optimización encontrando valores máximos y mínimos de funciones en intervalos específicos, aplicando estas técnicas a situaciones del mundo real.</p>
+            </div>
+
+            <h3>🔧 Estrategia General para Problemas de Optimización</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Identificar la función objetivo:</strong> ¿Qué queremos maximizar o minimizar?
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Identificar las variables:</strong> ¿Cuáles son las variables independientes?
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Escribir la función objetivo:</strong> Expresar la función en términos de una sola variable
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Determinar el dominio:</strong> ¿Cuáles son los valores posibles de la variable?
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Encontrar los extremos:</strong> Usar derivadas para encontrar máximos y mínimos
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Verificar el resultado:</strong> Asegurarse de que la respuesta tiene sentido
+            </div>
+
+            <h3>📐 Optimización en Geometría</h3>
+            
+            <div class="problem-box">
+                <h4>📝 Problema 1: Rectángulo de Área Máxima</h4>
+                <p><strong>Enunciado:</strong> Un granjero tiene 200 metros de cerca para construir un corral rectangular. ¿Cuáles deben ser las dimensiones del corral para que tenga el área máxima?</p>
+            </div>
+
+            <div class="solution-box">
+                <h4>💡 Solución:</h4>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Variables:</strong><br>
+                    • x = longitud del corral<br>
+                    • y = ancho del corral<br>
+                    • A = área del corral
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Restricción:</strong><br>
+                    Perímetro = 2x + 2y = 200<br>
+                    Despejando: y = 100 - x
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Función objetivo:</strong><br>
+                    A = x · y = x(100 - x) = 100x - x²
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Dominio:</strong><br>
+                    0 < x < 100 (longitudes positivas)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Optimización:</strong><br>
+                    A'(x) = 100 - 2x = 0 → x = 50<br>
+                    A''(x) = -2 < 0 → Máximo en x = 50
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Resultado:</strong><br>
+                    x = 50 m, y = 50 m<br>
+                    <span class="highlight">El corral debe ser un cuadrado de 50m × 50m</span>
+                </div>
+            </div>
+
+            <h3>💰 Optimización en Economía</h3>
+            
+            <div class="problem-box">
+                <h4>📝 Problema 2: Maximización de Utilidades</h4>
+                <p><strong>Enunciado:</strong> Una empresa produce x unidades de un producto. El costo total es C(x) = 1000 + 50x + 0.1x² y el precio de venta es p = 200 - 0.05x por unidad. ¿Cuántas unidades debe producir para maximizar la utilidad?</p>
+            </div>
+
+            <div class="solution-box">
+                <h4>💡 Solución:</h4>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Función de ingresos:</strong><br>
+                    I(x) = p · x = (200 - 0.05x)x = 200x - 0.05x²
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Función de utilidad:</strong><br>
+                    U(x) = I(x) - C(x) = (200x - 0.05x²) - (1000 + 50x + 0.1x²)<br>
+                    U(x) = 150x - 0.15x² - 1000
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Optimización:</strong><br>
+                    U'(x) = 150 - 0.3x = 0 → x = 500<br>
+                    U''(x) = -0.3 < 0 → Máximo en x = 500
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Resultado:</strong><br>
+                    <span class="highlight">Debe producir 500 unidades para maximizar la utilidad</span>
+                </div>
+            </div>
+
+            <h3>🌊 Optimización en Intervalos Cerrados</h3>
+            
+            <div class="concept-box">
+                <h4>Teorema de Weierstrass:</h4>
+                <p>Una función continua en un intervalo cerrado [a, b] siempre tiene un máximo y un mínimo absolutos en ese intervalo.</p>
+            </div>
+
+            <div class="formula-box">
+                <strong>Procedimiento para intervalos cerrados:</strong><br>
+                1. Encontrar puntos críticos en (a, b)<br>
+                2. Evaluar f(x) en los puntos críticos<br>
+                3. Evaluar f(a) y f(b)<br>
+                4. El mayor valor es el máximo absoluto<br>
+                5. El menor valor es el mínimo absoluto
+            </div>
+
+            <div class="example-box">
+                <h4>📝 Ejemplo: Optimización en Intervalo Cerrado</h4>
+                <p><strong>Problema:</strong> Encuentra el máximo y mínimo absolutos de f(x) = x³ - 3x² + 1 en el intervalo [-1, 3]</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Puntos críticos:</strong><br>
+                    f'(x) = 3x² - 6x = 3x(x - 2) = 0<br>
+                    x = 0, x = 2
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Evaluación:</strong><br>
+                    f(-1) = (-1)³ - 3(-1)² + 1 = -3<br>
+                    f(0) = 0³ - 3(0)² + 1 = 1<br>
+                    f(2) = 2³ - 3(2)² + 1 = -3<br>
+                    f(3) = 3³ - 3(3)² + 1 = 1
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Resultado:</strong><br>
+                    <span class="highlight">Máximo absoluto: 1 (en x = 0 y x = 3)</span><br>
+                    <span class="highlight">Mínimo absoluto: -3 (en x = -1 y x = 2)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: PROBLEMAS APLICADOS -->
+        <section id="aplicaciones" class="section">
+            <h2>🚀 5.3 Problemas Aplicados</h2>
+            
+            <div class="concept-box">
+                <h3>🎯 Objetivo de Aprendizaje</h3>
+                <p>Aplicarás las técnicas del cálculo diferencial para resolver problemas de movimiento, razones de cambio relacionadas y aproximaciones lineales en contextos reales.</p>
+            </div>
+
+            <h3>🏃 Velocidad y Aceleración</h3>
+            
+            <div class="formula-box">
+                <strong>Relaciones en el Movimiento:</strong><br>
+                Si s(t) es la posición en el tiempo t, entonces:<br>
+                • <span class="highlight">Velocidad:</span> v(t) = s'(t)<br>
+                • <span class="highlight">Aceleración:</span> a(t) = v'(t) = s''(t)
+            </div>
+
+            <div class="problem-box">
+                <h4>📝 Problema 3: Movimiento de un Proyectil</h4>
+                <p><strong>Enunciado:</strong> Un proyectil se lanza verticalmente hacia arriba desde el suelo con una velocidad inicial de 64 pies/segundo. La altura s(t) en pies después de t segundos está dada por s(t) = 64t - 16t². Encuentra:</p>
+                <ul>
+                    <li>a) La velocidad máxima alcanzada</li>
+                    <li>b) La altura máxima alcanzada</li>
+                    <li>c) El tiempo cuando el proyectil regresa al suelo</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>💡 Solución:</h4>
+                
+                <div class="step">
+                    <span class="step-number">a</span>
+                    <strong>Velocidad máxima:</strong><br>
+                    v(t) = s'(t) = 64 - 32t<br>
+                    La velocidad máxima ocurre en t = 0 (momento del lanzamiento)<br>
+                    <span class="highlight">v(0) = 64 pies/segundo</span>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">b</span>
+                    <strong>Altura máxima:</strong><br>
+                    En la altura máxima: v(t) = 0<br>
+                    64 - 32t = 0 → t = 2 segundos<br>
+                    s(2) = 64(2) - 16(2)² = 128 - 64 = 64<br>
+                    <span class="highlight">Altura máxima: 64 pies</span>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">c</span>
+                    <strong>Tiempo de regreso:</strong><br>
+                    s(t) = 0 → 64t - 16t² = 0<br>
+                    t(64 - 16t) = 0 → t = 0 o t = 4<br>
+                    <span class="highlight">Regresa al suelo en t = 4 segundos</span>
+                </div>
+            </div>
+
+            <h3>🔗 Razones de Cambio Relacionadas</h3>
+            
+            <div class="concept-box">
+                <h4>Estrategia para Razones de Cambio Relacionadas:</h4>
+                <ol>
+                    <li>Identificar las variables que cambian con el tiempo</li>
+                    <li>Escribir una ecuación que relacione las variables</li>
+                    <li>Derivar implícitamente con respecto al tiempo</li>
+                    <li>Sustituir los valores conocidos y resolver</li>
+                </ol>
+            </div>
+
+            <div class="problem-box">
+                <h4>📝 Problema 4: Globo que se Infla</h4>
+                <p><strong>Enunciado:</strong> Un globo esférico se está inflando de manera que su radio aumenta a razón de 2 cm/min. ¿A qué razón aumenta el volumen cuando el radio es de 10 cm?</p>
+            </div>
+
+            <div class="solution-box">
+                <h4>💡 Solución:</h4>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Variables:</strong><br>
+                    • r = radio del globo (cm)<br>
+                    • V = volumen del globo (cm³)<br>
+                    • t = tiempo (min)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Ecuación:</strong><br>
+                    V = (4/3)πr³
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Derivación implícita:</strong><br>
+                    dV/dt = (4/3)π · 3r² · dr/dt = 4πr² · dr/dt
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Sustitución:</strong><br>
+                    dr/dt = 2 cm/min, r = 10 cm<br>
+                    dV/dt = 4π(10)² · 2 = 800π<br>
+                    <span class="highlight">El volumen aumenta a razón de 800π cm³/min</span>
+                </div>
+            </div>
+
+            <h3>📏 Aproximaciones Lineales</h3>
+            
+            <div class="formula-box">
+                <strong>Fórmula de Aproximación Lineal:</strong><br>
+                f(x) ≈ f(a) + f'(a)(x - a)<br>
+                donde L(x) = f(a) + f'(a)(x - a) es la <span class="highlight">linealización</span> de f en x = a
+            </div>
+
+            <div class="example-box">
+                <h4>📝 Ejemplo: Aproximación de √25.1</h4>
+                <p><strong>Problema:</strong> Usa aproximación lineal para estimar √25.1</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Función:</strong> f(x) = √x
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Punto cercano:</strong> a = 25 (porque √25 = 5 es conocido)
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Cálculos:</strong><br>
+                    f(25) = √25 = 5<br>
+                    f'(x) = 1/(2√x) → f'(25) = 1/(2√25) = 1/10 = 0.1
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Aproximación:</strong><br>
+                    L(x) = 5 + 0.1(x - 25)<br>
+                    L(25.1) = 5 + 0.1(25.1 - 25) = 5 + 0.1(0.1) = 5.01<br>
+                    <span class="highlight">√25.1 ≈ 5.01</span>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Verificación:</strong><br>
+                    Valor real: √25.1 ≈ 5.00999<br>
+                    Error: |5.01 - 5.00999| ≈ 0.00001 (muy pequeño)
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Las aproximaciones lineales son especialmente útiles cuando necesitas estimar valores de funciones complejas cerca de puntos donde conoces el valor exacto.
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: EJERCICIOS INTERACTIVOS -->
+        <section id="ejercicios" class="section">
+            <h2>🎮 Ejercicios Interactivos</h2>
+            
+            <div class="interactive-demo">
+                <h3>🧮 Calculadora de Derivadas</h3>
+                <p>Practica calculando derivadas de diferentes funciones:</p>
+                
+                <div class="problem-box">
+                    <h4>Ejercicio 1: Análisis Completo</h4>
+                    <p>Para la función f(x) = x³ - 6x² + 9x + 2:</p>
+                    <ol>
+                        <li>Encuentra los intervalos de crecimiento y decrecimiento</li>
+                        <li>Identifica los máximos y mínimos relativos</li>
+                        <li>Determina la concavidad y puntos de inflexión</li>
+                        <li>Grafica la función</li>
+                    </ol>
+                </div>
+
+                <div class="solution-box">
+                    <h4>💡 Solución Paso a Paso:</h4>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Primera derivada:</strong><br>
+                        f'(x) = 3x² - 12x + 9 = 3(x² - 4x + 3) = 3(x - 1)(x - 3)
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Puntos críticos:</strong><br>
+                        f'(x) = 0 → x = 1, x = 3
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Análisis de crecimiento:</strong><br>
+                        • (-∞, 1): f'(x) > 0 → <span class="highlight">Creciente</span><br>
+                        • (1, 3): f'(x) < 0 → <span class="highlight">Decreciente</span><br>
+                        • (3, ∞): f'(x) > 0 → <span class="highlight">Creciente</span>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Extremos:</strong><br>
+                        • En x = 1: f(1) = 6 → <span class="highlight">Máximo relativo</span><br>
+                        • En x = 3: f(3) = 2 → <span class="highlight">Mínimo relativo</span>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Segunda derivada:</strong><br>
+                        f''(x) = 6x - 12 = 6(x - 2)
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Concavidad:</strong><br>
+                        • (-∞, 2): f''(x) < 0 → <span class="highlight">Cóncava hacia abajo</span><br>
+                        • (2, ∞): f''(x) > 0 → <span class="highlight">Cóncava hacia arriba</span><br>
+                        • En x = 2: <span class="highlight">Punto de inflexión</span>
+                    </div>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Ejercicio 2: Problema de Optimización</h4>
+                    <p>Una caja rectangular sin tapa se construye a partir de una pieza cuadrada de cartón de 12 cm de lado, cortando cuadrados iguales de las esquinas y doblando los lados. ¿Cuál es el volumen máximo de la caja?</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>💡 Solución:</h4>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Variables:</strong><br>
+                        • x = lado del cuadrado cortado<br>
+                        • V = volumen de la caja
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Dimensiones de la caja:</strong><br>
+                        • Largo: 12 - 2x<br>
+                        • Ancho: 12 - 2x<br>
+                        • Alto: x
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Función volumen:</strong><br>
+                        V(x) = (12 - 2x)² · x = (144 - 48x + 4x²) · x = 144x - 48x² + 4x³
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Dominio:</strong><br>
+                        0 < x < 6 (porque 12 - 2x > 0)
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Optimización:</strong><br>
+                        V'(x) = 144 - 96x + 12x² = 12(x² - 8x + 12) = 12(x - 2)(x - 6)<br>
+                        V'(x) = 0 → x = 2 o x = 6<br>
+                        Solo x = 2 está en el dominio
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Verificación:</strong><br>
+                        V''(x) = -96 + 24x<br>
+                        V''(2) = -96 + 48 = -48 < 0 → Máximo
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        <strong>Resultado:</strong><br>
+                        V(2) = 144(2) - 48(4) + 4(8) = 288 - 192 + 32 = 128<br>
+                        <span class="highlight">Volumen máximo: 128 cm³</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h3>📊 Resumen de Técnicas de Optimización</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de Problema</th>
+                            <th>Estrategia</th>
+                            <th>Herramientas</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Máximo/Mínimo Absoluto</td>
+                            <td>Evaluar en puntos críticos y extremos</td>
+                            <td>Primera derivada</td>
+                            <td>Optimización en intervalos cerrados</td>
+                        </tr>
+                        <tr>
+                            <td>Máximo/Mínimo Relativo</td>
+                            <td>Criterio de primera o segunda derivada</td>
+                            <td>Primera y segunda derivada</td>
+                            <td>Análisis de funciones</td>
+                        </tr>
+                        <tr>
+                            <td>Razones de Cambio</td>
+                            <td>Derivación implícita</td>
+                            <td>Regla de la cadena</td>
+                            <td>Problemas de movimiento</td>
+                        </tr>
+                        <tr>
+                            <td>Aproximaciones</td>
+                            <td>Linealización</td>
+                            <td>Recta tangente</td>
+                            <td>Estimaciones numéricas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: RESUMEN -->
+        <section id="resumen" class="section">
+            <h2>📋 Resumen del Módulo 5</h2>
+            
+            <div class="concept-box">
+                <h3>🎯 Conceptos Clave Dominados</h3>
+                <ul>
+                    <li><strong>Análisis de Funciones:</strong> Crecimiento, decrecimiento, extremos y concavidad</li>
+                    <li><strong>Optimización:</strong> Estrategias para encontrar máximos y mínimos</li>
+                    <li><strong>Aplicaciones:</strong> Movimiento, razones de cambio y aproximaciones</li>
+                    <li><strong>Resolución de Problemas:</strong> Metodología sistemática para problemas aplicados</li>
+                </ul>
+            </div>
+
+            <div class="formula-box">
+                <h3>🔑 Fórmulas Esenciales</h3>
+                <p><strong>Criterio de la Primera Derivada:</strong> f'(x) cambia de signo → extremo relativo</p>
+                <p><strong>Criterio de la Segunda Derivada:</strong> f''(c) > 0 → mínimo; f''(c) < 0 → máximo</p>
+                <p><strong>Concavidad:</strong> f''(x) > 0 → cóncava hacia arriba; f''(x) < 0 → cóncava hacia abajo</p>
+                <p><strong>Aproximación Lineal:</strong> f(x) ≈ f(a) + f'(a)(x - a)</p>
+            </div>
+
+            <div class="tip">
+                <h3>💡 Consejos para el Éxito</h3>
+                <ul>
+                    <li><strong>Practica regularmente:</strong> Resuelve problemas variados cada día</li>
+                    <li><strong>Visualiza:</strong> Dibuja gráficas para entender mejor el comportamiento</li>
+                    <li><strong>Verifica:</strong> Siempre comprueba que tus respuestas tienen sentido</li>
+                    <li><strong>Aplica:</strong> Conecta los conceptos con situaciones reales</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <h3>⚠️ Errores Comunes a Evitar</h3>
+                <ul>
+                    <li>No olvides verificar el dominio de la función</li>
+                    <li>Confundir máximos/mínimos relativos con absolutos</li>
+                    <li>No considerar todas las restricciones en problemas de optimización</li>
+                    <li>Olvidar las unidades en problemas aplicados</li>
+                </ul>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🚀 Próximos Pasos</h3>
+                <p>¡Felicidades! Has completado el módulo de Aplicaciones de la Derivada. Ahora estás preparado para:</p>
+                <ul>
+                    <li>Resolver problemas complejos de optimización</li>
+                    <li>Analizar el comportamiento de funciones avanzadas</li>
+                    <li>Aplicar el cálculo diferencial en otras áreas</li>
+                    <li>Continuar con el cálculo integral</li>
+                </ul>
+                
+                <button class="btn" onclick="alert('¡Excelente trabajo! Continúa practicando estos conceptos.')">
+                    🎉 ¡Completar Módulo!
+                </button>
+            </div>
+        </section>
+
+        <div class="footer">
+            <h3>📚 Recursos Adicionales</h3>
+            <p>Para profundizar en estos temas, consulta:</p>
+            <ul style="list-style: none; padding: 0;">
+                <li>📖 Stewart, J. - Cálculo: Trascendentes Tempranas</li>
+                <li>🌐 Khan Academy - Cálculo Diferencial</li>
+                <li>📱 GeoGebra - Herramientas de visualización</li>
+                <li>🎯 Desmos - Calculadora gráfica interactiva</li>
+            </ul>
+            <p style="margin-top: 20px; font-style: italic;">
+                "Las matemáticas son el lenguaje con el que Dios escribió el universo." - Galileo Galilei
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad interactiva básica
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling para navegación
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Efecto de resaltado en secciones
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                section.style.transform = 'translateY(20px)';
+                section.style.opacity = '0';
+                section.style.transition = 'all 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Animación de botones
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.05)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Función para mostrar/ocultar soluciones
+        function toggleSolution(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+
+        // Función para calcular derivadas simples
+        function calculateDerivative() {
+            const functionInput = document.getElementById('functionInput');
+            const resultDiv = document.getElementById('derivativeResult');
+            
+            if (functionInput && resultDiv) {
+                const func = functionInput.value;
+                // Aquí se implementaría la lógica de cálculo de derivadas
+                resultDiv.innerHTML = `<p>Derivada de ${func}: [Implementar cálculo]</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
